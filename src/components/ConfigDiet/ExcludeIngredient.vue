@@ -4,14 +4,13 @@
     <multiselect v-model="value" tag-placeholder="Add this as new tag" placeholder="Search or add a tag" label="name" track-by="code" :options="options" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
   </div>
 </template>
-
 <script>
-import Multiselect from 'vue-multiselect'
+import Multiselect from "vue-multiselect";
 
 export default {
-  components: {
-    Multiselect
-  },
+  name: 'ExcludeIngredient',
+  components: {Multiselect},
+
   data () {
     return {
       value: [
@@ -40,5 +39,3 @@ export default {
   }
 }
 </script>
-
-<style src="vue-multiselect/dist/vue-multiselect.css"></style>
