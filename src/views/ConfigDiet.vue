@@ -16,25 +16,37 @@
       </div>
     </section>
 
-    <h3> ¿Como de saludables quieres las recetas?</h3>
-    <range-picker-healthy class="w-3/4 mx-auto" />
+    <section>
+      <h3 class="font-semibold text-xl"> ¿Como de saludables quieres las recetas?</h3>
+      <range-picker-healthy class="w-3/4 mx-auto" />
+    </section>
 
-    <h3>Vas justo de tiempo?</h3>
-    <max-time-selector />
+    <section>
+      <h3 class="font-semibold text-xl pt-10">Vas justo de tiempo?</h3>
+      <max-time-selector />
+    </section>
 
-    <h3>¿No eres muy cocinillas? Ajusta la dificultad</h3>
-    <div class="flex flex-row flex-wrap gap-x-4 gap-y-2 justify-between mx-3">
-      <difficulty-selector />
-    </div>
+    <section>
+      <h3 class="font-semibold text-xl">¿No eres muy cocinillas? Ajusta la dificultad</h3>
+      <div class="flex flex-row flex-wrap gap-x-4 gap-y-2 justify-between mx-3">
+        <difficulty-selector />
+      </div>
+    </section>
 
-    <h3>¿Alguna alergia?</h3>
-    <allergies-selector />
+    <section>
+      <h3 class="font-semibold text-xl pt-10">¿Alguna alergia?</h3>
+      <allergies-selector />
+    </section>
 
-    <h3>¿Alguna restricción alimentaria?</h3>
-    <food-restriction />
+    <section>
+      <h3 class="font-semibold text-xl">¿Alguna restricción alimentaria?</h3>
+      <food-restriction />
+    </section>
 
-    <h3>¿Odias algún alimento?¿Lo excluimos de la dieta?</h3>
-    <exclude-ingredient />
+    <section>
+      <h3 class="font-semibold text-xl">¿Odias algún alimento?¿Lo excluimos de la dieta?</h3>
+      <exclude-ingredient />
+    </section>
 
     <p class="flex justify-center">
       <button @click="navigateNextPage" class=" text-5xl">➡️</button>

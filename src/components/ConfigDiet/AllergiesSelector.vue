@@ -1,44 +1,42 @@
 <template>
-  <div>
-    <label class="typo__label">Tagging</label>
-    <multiselect v-model="value" tag-placeholder="Add this as new tag" placeholder="Search or add a tag" label="name" track-by="code" :options="options" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
-  </div>
+  <ul class="flex flex-row flex-wrap justify-center items-center gap-x-4 gap-y-2">
+    <li @click="toggleAllergy(option.code)" class="w-40 flex justify-center items-center h-10 rounded-lg" v-for="(option) in options" v-bind:key="option.code" :class="{'bg-green-200': selected.includes(option.code)}">
+      <label>
+        {{ option.literal }} {{ option.name }}
+      </label>
+    </li>
+  </ul>
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
+
+import {useConfigDietStore} from "@/storage/configDiet.js";
 
 export default {
-  components: {
-    Multiselect
-  },
   data () {
     return {
-      value: [
-      ],
       options: [
-        {name: '🥜', tag: 'Cacahuete', code: 'caca'},
-        {name: '🌰', code: 'fs'},
-        {name: '🦀', code: 'mc'},
-        { name: '🐟', code: 'pc' },
-        { name: '🥛', code: 'lc' },
-        { name: '🥚', code: 'js' },
-        { name: '🌾', code: 'tg' },
-        { name: '🫛', code: 'sj' }
-      ]
+        {name: '🥜', literal:'Cacahuete', code: 'cacahuete'},
+        {name: '🌰', literal: 'Frutos secos', code: 'frutossecos'},
+        {name: '🦀', literal: 'Mariscos', code: 'mariscos'},
+        { name: '🐟', literal: 'Pescados', code: 'pescados' },
+        { name: '🥛', literal: 'Leche', code: 'leche' },
+        { name: '🥚', literal: 'Huevo', code: 'huevos' },
+        { name: '🌾', literal: 'Trigo', code: 'trigo' },
+        { name: '🫛', literal: 'Soja', code: 'soja' }
+      ],
+
+      selected: useConfigDietStore().getAllergies() ? useConfigDietStore().getAllergies() : []
     }
   },
   methods: {
-    addTag (newTag) {
-      const tag = {
-        name: newTag,
-        code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
+    toggleAllergy(allergyCode){
+      if(this.selected.includes(allergyCode)){
+        useConfigDietStore().removeAllergy(allergyCode)
+      } else {
+        useConfigDietStore().addAllergy(allergyCode)
       }
-      this.options.push(tag)
-      this.value.push(tag)
     }
   }
 }
 </script>
-
-<style src="../../../node_modules/vue-multiselect/dist/vue-multiselect.css"></style>
