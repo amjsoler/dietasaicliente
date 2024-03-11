@@ -3,13 +3,15 @@
     <span class="w-[45%] h-[70%] bg-white mx-4 my-2 rounded-lg block absolute"
     :class="{'female': localGender === 'female',
               'male': localGender === 'male'}"/>
-    <p class="z-10 text-lg text-primary-900"
-        :class="{'text-white': localGender==='female'}"
+    <p class="z-10 text-lg text-primary-600 text-primary-600"
+        :class="{
+          'text-primary-800': localGender =='female'
+        }"
     >
       Femenino
     </p>
-    <p class="z-10 text-lg text-primary-900"
-       :class="{'text-white': localGender==='male'}">
+    <p class="z-10 text-lg text-primary-600"
+       :class="{'text-primary-800': localGender =='male'}">
       Masculino
     </p>
   </div>

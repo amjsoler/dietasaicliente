@@ -11,9 +11,18 @@ export const useConfigDietStore = defineStore("configDiet", {
         IngredientsExcluded: [],
         gender: "female",
         height: 130,
-        width: 50
+        width: 50,
+        age: 30
     }),
     actions: {
+        getAge() {
+            return this.age
+        },
+
+        setAge(age) {
+            this.age = age
+        },
+
         getWidth() {
             return this.width
         },

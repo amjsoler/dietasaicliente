@@ -25,11 +25,21 @@
       <weight-selector />
     </section>
 
-    <h3>Edad</h3>
-    <age-selector v-model="age" />
+    <section class="space-y-6">
+      <typography-variant variant="h3">
+        Edad
+      </typography-variant>
+      <age-selector />
+    </section>
 
-    <h3>Actividad física</h3>
-    <weekly-activity v-model="weeklyActivity" />
+    <section class="space-y-6">
+      asdf
+      <typography-variant variant="h3">
+        Actividad física
+      </typography-variant>
+      <weekly-activity />
+    </section>
+
 
     <p>Calorías diarias: {{ Math.floor(dailyKcal) }}Kcal</p>
   </div>
