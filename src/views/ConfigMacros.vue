@@ -1,27 +1,35 @@
 <template>
-  <div>
-    <h2>ConfigMacros</h2>
+  <div class="space-y-8">
+    <typography-variant variant="h2">
+      Cálculo de calorías
+    </typography-variant>
 
-    <h3>Genero</h3>
-    <gender-selector v-model="gender" @update-model-value="calculateDailyKcal" />
+    <section class="space-y-6">
+      <typography-variant variant="h3">
+        Genero
+      </typography-variant>
+      <gender-selector />
+    </section>
 
-    <h3>Altura</h3>
-    <heigh-selector v-model="heigh" />
-    <p>
-      {{ heigh }}cm.
-    </p>
+    <section class="space-y-6">
+      <typography-variant variant="h3">
+        Altura
+      </typography-variant>
+      <heigh-selector />
+    </section>
 
-    <h3>Peso</h3>
-    <weight-selector v-model="weight" />
-    <p>{{ weight}}</p>
+    <section class="space-y-6">
+      <typography-variant variant="h3">
+        Peso
+      </typography-variant>
+      <weight-selector />
+    </section>
 
     <h3>Edad</h3>
     <age-selector v-model="age" />
-    <p>{{ age }}</p>
 
     <h3>Actividad física</h3>
     <weekly-activity v-model="weeklyActivity" />
-    <p>{{weeklyActivity}}</p>
 
     <p>Calorías diarias: {{ Math.floor(dailyKcal) }}Kcal</p>
   </div>
@@ -33,10 +41,11 @@ import HeighSelector from "@/components/ConfigMacros/HeighSelector.vue";
 import WeightSelector from "@/components/ConfigMacros/WeightSelector.vue";
 import AgeSelector from "@/components/ConfigMacros/AgeSelector.vue";
 import WeeklyActivity from "@/components/ConfigMacros/WeeklyActivity.vue";
+import TypographyVariant from "@/components/TypographyVariant.vue";
 
 export default {
   name: 'ConfigMacros',
-  components: {WeeklyActivity, AgeSelector, WeightSelector, HeighSelector, GenderSelector},
+  components: {TypographyVariant, WeeklyActivity, AgeSelector, WeightSelector, HeighSelector, GenderSelector},
 
   data() {
     return {

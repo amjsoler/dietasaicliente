@@ -81,7 +81,7 @@ import TypographyVariant from "@/components/TypographyVariant.vue";
 /**
  * Cantidad de saludable (poco, normal, mucho) ✅
  * Excluír algún alimento ✅
- * Eres fan de algún alimento
+ * Eres fan de algún alimento ❌
  * Restricciones alimentarias (Vegetariano, vegano, dieta receta sin gluten, sin lácteos) ✅
  * Alergias (cacahuete, frutos secos, mariscos, pescados, leche, huevo, trigo, soja) ✅
  * Dificultad (fácil, medio, difícil) ✅

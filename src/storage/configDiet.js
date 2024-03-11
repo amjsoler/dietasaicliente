@@ -9,8 +9,39 @@ export const useConfigDietStore = defineStore("configDiet", {
         Allergies: [],
         FoodRestrictions: [],
         IngredientsExcluded: [],
+        gender: "female",
+        height: 130,
+        width: 50
     }),
     actions: {
+        getWidth() {
+            return this.width
+        },
+
+        setWidth(width) {
+            this.width = width
+        },
+
+        getHeight() {
+            return this.height
+        },
+
+        setHeight(height) {
+            this.height = height
+        },
+
+        getGender() {
+            return this.gender
+        },
+
+        toggleGender() {
+            if(this.gender === "female")
+                this.gender = "male"
+            else{
+                this.gender = "female"
+            }
+        },
+
         getIngredientsExcluded() {
             return this.IngredientsExcluded;
         },

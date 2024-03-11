@@ -1,15 +1,39 @@
 <template>
-  <label for="default-range" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Default range</label>
-  <input id="default-range" type="range" min="50" max="220" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
-
-
-
+  <div class="relative">
+    <input type="range" min="50" max="220" v-model="height" @input="changeHeight" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
+    <span class="text-sm absolute right-0 -top-12">
+      {{ height }}cm
+    </span>
+  </div>
 </template>
 <script>
+import {useConfigDietStore} from "@/storage/configDiet.js";
+
 export default {
   name: 'HeighSelector',
+   data() {
+    return {
+      height: useConfigDietStore().getHeight()
+    }
+   },
 
-  props: ["modelValue"],
-  emits: ['update:modelValue'],
+  methods: {
+    changeHeight() {
+      useConfigDietStore().setHeight(this.height)
+    }
+  }
 }
 </script>
+
+<style scoped>
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #ff903d;
+  cursor: pointer;
+  border-radius: 50%;
+}
+</style>
+
