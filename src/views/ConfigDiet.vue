@@ -1,13 +1,17 @@
 <template>
-  <div class="space-y-6">
-    <header>
-      <h2 class="text-2xl text-center font-semibold mb-3">Personaliza tu dieta</h2>
-      <p class="mb-2">Contesta unas cuantas preguntas para que podamos hacer una dieta totalmente a tu medida</p>
+  <div class="space-y-8">
+    <header class="space-y-2">
+      <typography-variant variant="h2">Personaliza tu dieta</typography-variant>
+      <typography-variant variant="p">
+        A continuación, podrás personalizar la dieta tanto como quieras
+      </typography-variant>
     </header>
 
     <section class="space-y-2">
-      <h3 class="font-semibold text-xl">¿Cuantas comidas quieres hacer al día?</h3>
-      <div class="flex flex-row flex-wrap gap-x-4 gap-y-2 justify-between mx-3">
+      <typography-variant variant="h3">
+        ¿Cuantas comidas quieres hacer al día?
+      </typography-variant>
+      <div class="flex flex-col gap-y-2">
         <selector-comida literal="desayuno">Desayuno</selector-comida>
         <selector-comida literal="almuerzo">Almuerzo</selector-comida>
         <selector-comida literal="comida">Comida</selector-comida>
@@ -16,40 +20,50 @@
       </div>
     </section>
 
-    <section>
-      <h3 class="font-semibold text-xl"> ¿Como de saludables quieres las recetas?</h3>
-      <range-picker-healthy class="w-3/4 mx-auto" />
+    <section class="space-y-6">
+      <typography-variant variant="h3">
+        Recetas saludables?
+      </typography-variant>
+      <range-picker-healthy />
     </section>
 
-    <section>
-      <h3 class="font-semibold text-xl pt-10">Vas justo de tiempo?</h3>
+    <section class="space-y-6">
+      <typography-variant variant="h3">
+        ¿Vas justo de tiempo?
+      </typography-variant>
       <max-time-selector />
     </section>
 
-    <section>
-      <h3 class="font-semibold text-xl">¿No eres muy cocinillas? Ajusta la dificultad</h3>
-      <div class="flex flex-row flex-wrap gap-x-4 gap-y-2 justify-between mx-3">
-        <difficulty-selector />
-      </div>
+    <section class="space-y-6">
+      <typography-variant variant="h3">
+        ¿Restringimos la dificultad de las recetas?
+      </typography-variant>
+      <difficulty-selector />
     </section>
 
-    <section>
-      <h3 class="font-semibold text-xl pt-10">¿Alguna alergia?</h3>
+    <section class="space-y-6">
+      <typography-variant variant="h3">
+        ¿Alguna alergia?
+      </typography-variant>
       <allergies-selector />
     </section>
 
-    <section>
-      <h3 class="font-semibold text-xl">¿Alguna restricción alimentaria?</h3>
+    <section class="space-y-6">
+      <typography-variant variant="h3">
+        ¿Tienes alguna restricción alimentaria?
+      </typography-variant>
       <food-restriction />
     </section>
 
-    <section>
-      <h3 class="font-semibold text-xl">¿Odias algún alimento?¿Lo excluimos de la dieta?</h3>
+    <section class="space-y-6">
+      <typography-variant variant="h3">
+        ¿Algún alimento que no te guste?
+      </typography-variant>
       <exclude-ingredient />
     </section>
 
     <p class="flex justify-center">
-      <button @click="navigateNextPage" class=" text-5xl">➡️</button>
+      <button @click="navigateNextPage" class=" text-4xl">➡️</button>
     </p>
   </div>
 </template>
@@ -62,6 +76,7 @@ import DifficultySelector from "@/components/ConfigDiet/DifficultySelector.vue";
 import AllergiesSelector from "@/components/ConfigDiet/AllergiesSelector.vue";
 import FoodRestriction from "@/components/ConfigDiet/FoodRestriction.vue";
 import ExcludeIngredient from "@/components/ConfigDiet/ExcludeIngredient.vue";
+import TypographyVariant from "@/components/TypographyVariant.vue";
 
 /**
  * Cantidad de saludable (poco, normal, mucho) ✅
@@ -77,6 +92,7 @@ import ExcludeIngredient from "@/components/ConfigDiet/ExcludeIngredient.vue";
 export default {
   name: 'ConfigDiet',
   components: {
+    TypographyVariant,
     ExcludeIngredient,
     FoodRestriction,
     AllergiesSelector, DifficultySelector, MaxTimeSelector, RangePickerHealthy, SelectorComida},

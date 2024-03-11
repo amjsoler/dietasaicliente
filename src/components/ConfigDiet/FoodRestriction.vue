@@ -1,7 +1,8 @@
 <template>
   <ul class="flex flex-row flex-wrap justify-center items-center gap-x-4 gap-y-2">
-    <li @click="toggleFoodRestrictions(option.code)" class="w-40 flex justify-center items-center h-10 rounded-lg" v-for="(option) in foodRestrictions" v-bind:key="option.code" :class="{'bg-green-200': selectedFoodRestrictions.includes(option.code)}">
-      <label>
+    <li @click="toggleFoodRestrictions(option.code)" class=" cursor-pointer w-40 border-2 border-primary-100 flex justify-center items-center h-10 rounded-lg" v-for="(option) in foodRestrictions" v-bind:key="option.code">
+      <custom-check :checked="selectedFoodRestrictions.includes(option.code)" />
+      <label class="ms-2">
         {{ option.name }}
       </label>
     </li>
@@ -11,17 +12,19 @@
 <script>
 
 import {useConfigDietStore} from "@/storage/configDiet.js";
+import CustomCheck from "@/components/CustomCheck.vue";
 
 export default {
   name: 'FoodRestriction',
+  components: {CustomCheck},
 
   data() {
     return {
       foodRestrictions: [
-        { name: 'Recetas vegetariana', code: "vegetariana" },
-        { name: 'Recetas Vegana', code: "vegana" },
-        { name: 'Recetas sin gluten', code: "gluten" },
-        { name: 'Recetas sin lácteos', code: "lacteos" }
+        { name: 'Vegetarianas', code: "vegetariana" },
+        { name: 'Veganas', code: "vegana" },
+        { name: 'Sin gluten', code: "gluten" },
+        { name: 'Sin lácteos', code: "lacteos" }
       ],
 
       selectedFoodRestrictions: useConfigDietStore().getFoodRestrictions() ? useConfigDietStore().getFoodRestrictions() : []

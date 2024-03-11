@@ -1,16 +1,28 @@
 <template>
-  <div class="relative w-full">
-    <input id="labels-range-input" type="range" @input="setDifficulty" v-model="difficulty" min="0" max="2" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
-    <span class="text-xl absolute start-0 -bottom-6">🐣</span>
-    <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-1/2 -ms-2 -bottom-6">🍳</span>
-    <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">🧑‍🍳</span>
+  <div class="relative w-full space-y-2">
+    <input id="labels-range-input" type="range" :data-value="difficulty" @input="setDifficulty" v-model="difficulty" min="0" max="2" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+    <typography-variant variant="p">
+      <span v-if="difficulty == 0">
+        Recetas fáciles
+      </span>
+
+      <span v-else-if="difficulty == 1">
+        Recetas normales
+      </span>
+
+      <span v-else>
+        Recetas gourmet
+      </span>
+    </typography-variant>
   </div>
 </template>
 <script>
 import {useConfigDietStore} from "@/storage/configDiet.js";
+import TypographyVariant from "@/components/TypographyVariant.vue";
 
 export default {
   name: 'DifficultySelector',
+  components: {TypographyVariant},
 
   data() {
     return {
@@ -25,3 +37,79 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+/*********** Baseline, reset styles ***********/
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Removes default focus */
+input[type="range"]:focus {
+  outline: none;
+}
+
+/******** Chrome, Safari, Opera and Edge Chromium styles ********/
+/* slider track */
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: rgb(156 163 175 / 0.2);
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+/* slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  height: 32px;
+  width: 32px;
+  margin-top: -12px; /* Centers thumb on the track */
+}
+
+input[data-value="0"]::-webkit-slider-thumb {
+  background: #FFF url('/icons/polluelo.png') no-repeat center center;
+  background-size: contain;
+}
+
+input[data-value="1"]::-webkit-slider-thumb {
+  background: #FFF url('/icons/sarten.png') no-repeat center;
+  background-size: contain;
+}
+
+input[data-value="2"]::-webkit-slider-thumb {
+  background: #FFF url('/icons/cocinero.png') no-repeat center;
+  background-size: contain;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  outline: 3px solid #ff7b00;
+  outline-offset: 0.125rem;
+}
+
+/*********** Firefox styles ***********/
+/* slider track */
+input[type="range"]::-moz-range-track {
+  background-color: rgb(156 163 175 / 0.6);
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+/* slider thumb */
+input[type="range"]::-moz-range-thumb {
+  border: none; /*Removes extra border that FF applies*/
+  border-radius: 0.5rem;
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  height: 32px;
+  width: 32px;
+  margin-top: -12px; /* Centers thumb on the track */
+}
+
+input[type="range"]:focus::-moz-range-thumb{
+  outline: 3px solid #ff7b00;
+  outline-offset: 0.125rem;
+}
+</style>
