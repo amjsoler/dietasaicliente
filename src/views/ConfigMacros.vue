@@ -32,13 +32,51 @@
       <age-selector />
     </section>
 
-    <section class="space-y-6">
-      asdf
+    <section class="space-y-6 relative">
       <typography-variant variant="h3">
         Actividad física
       </typography-variant>
+      <div class="absolute top-0 right-0 !mt-0">
+        <p class="flex items-center absolute top-0 right-0 text-gray-500 dark:text-gray-400">
+          <button data-popover-target="popover-weekly-activity-description" data-popover-placement="bottom-end" type="button">
+            ℹ️
+          </button>
+        </p>
+        <div data-popover id="popover-weekly-activity-description" role="tooltip" class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+          <div class="p-3 space-y-2">
+            <ul class="space-y-6">
+              <li>
+                <h4 class="text-lg font-semibold ">Sedentario</h4>
+                <p>Poco o ningún ejercicio</p>
+              </li>
+
+              <li>
+                <h4 class="text-lg font-semibold ">Lévemente activo</h4>
+                <p>Ejercicio ligero. Deporte de 1 a 3 días por semana</p>
+              </li>
+
+              <li>
+                <h4 class="text-lg font-semibold ">Lévemente activo</h4>
+                <p>Ejercicio moderado. Deporte de 3 a 5 días por semana</p>
+              </li>
+
+              <li>
+                <h4 class="text-lg font-semibold ">Muy activo</h4>
+                <p>Ejercicio duro. Deporte de 6 a 7 días por semana</p>
+              </li>
+
+              <li>
+                <h4 class="text-lg font-semibold ">Extremadamente activo</h4>
+                <p>Ejercicio muy duro / deportes y trabajo físico diario o dos veces al día, entrenamientos de alto rendimiento</p>
+              </li>
+            </ul>
+          </div>
+          <div data-popper-arrow></div>
+        </div>
+      </div>
       <weekly-activity />
     </section>
+
 
 
     <p>Calorías diarias: {{ Math.floor(dailyKcal) }}Kcal</p>
@@ -52,43 +90,31 @@ import WeightSelector from "@/components/ConfigMacros/WeightSelector.vue";
 import AgeSelector from "@/components/ConfigMacros/AgeSelector.vue";
 import WeeklyActivity from "@/components/ConfigMacros/WeeklyActivity.vue";
 import TypographyVariant from "@/components/TypographyVariant.vue";
+import { useConfigDietStore } from "@/storage/configDiet.js";
 
 export default {
   name: 'ConfigMacros',
   components: {TypographyVariant, WeeklyActivity, AgeSelector, WeightSelector, HeighSelector, GenderSelector},
 
-  data() {
-    return {
-      dailyKcal: 0,
-      gender: 'female',
-      heigh: 110,
-      weight: 68,
-      age: 32,
-      weeklyActivity: 3
-    }
-  },
-
-  mounted() {
-    this.calculateDailyKcal()
-  },
-
-  methods: {
-    calculateDailyKcal() {
-      const weeklyActivityRelation = [1.2, 1.375, 1.55, 1.725, 1.9]
+  computed: {
+    dailyKcal() {
+      const gender = useConfigDietStore().getGender()
+      const weight = parseFloat(useConfigDietStore().getWidth())
+      const height = parseFloat(useConfigDietStore().getHeight())
+      const age = useConfigDietStore().getAge()
+      const weeklyActivity = parseFloat(useConfigDietStore().getWeeklyActivity())
 
       let TMB = 0
 
-      if(this.gender === "male"){
-        TMB = 88362+ (13.397 * this.weight) + (4.799 * this.heigh) - (5.677 * this.age)
+      if(gender === "male"){
+        TMB = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
       }else{
-        TMB = 447.593 + (9.247 * this.weight) + (3.098 * this.heigh) - (4.330 * this.age)
+        TMB = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
       }
 
-      this.dailyKcal = TMB * weeklyActivityRelation[this.weeklyActivity]
+      return TMB * weeklyActivity
     }
-
-  }
-
+  },
 }
 
 

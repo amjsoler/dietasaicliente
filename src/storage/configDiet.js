@@ -12,9 +12,18 @@ export const useConfigDietStore = defineStore("configDiet", {
         gender: "female",
         height: 130,
         width: 50,
-        age: 30
+        age: 30,
+        weeklyActivity: 1.55
     }),
     actions: {
+        getWeeklyActivity() {
+            return this.weeklyActivity
+        },
+
+        setWeeklyActivity(weeklyActivity) {
+            this.weeklyActivity = weeklyActivity
+        },
+
         getAge() {
             return this.age
         },
