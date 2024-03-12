@@ -77,9 +77,23 @@
       <weekly-activity />
     </section>
 
+    <section>
+      <typography-variant variant="h3">
+        Objetivo de la dieta
+      </typography-variant>
+      <diet-objective />
+    </section>
 
+    <section class="flex flex-col items-center">
+      <typography-variant variant="h3">
+        Calorías diarias
+      </typography-variant>
+      <p class="text-3xl font-bold ">{{ Math.floor(dailyKcal) }} <span class="text-xl">Kcal</span></p>
+    </section>
 
-    <p>Calorías diarias: {{ Math.floor(dailyKcal) }}Kcal</p>
+    <p class="flex justify-center">
+      <button @click="router().push({name: 'ConfigSummary'})" class=" text-4xl">➡️</button>
+    </p>
   </div>
 </template>
 
@@ -91,10 +105,19 @@ import AgeSelector from "@/components/ConfigMacros/AgeSelector.vue";
 import WeeklyActivity from "@/components/ConfigMacros/WeeklyActivity.vue";
 import TypographyVariant from "@/components/TypographyVariant.vue";
 import { useConfigDietStore } from "@/storage/configDiet.js";
+import DietObjective from "@/components/ConfigMacros/DietObjective.vue";
+import router from "@/router/index.js";
 
 export default {
   name: 'ConfigMacros',
-  components: {TypographyVariant, WeeklyActivity, AgeSelector, WeightSelector, HeighSelector, GenderSelector},
+  methods: {
+    router() {
+      return router
+    }
+  },
+  components: {
+    DietObjective,
+    TypographyVariant, WeeklyActivity, AgeSelector, WeightSelector, HeighSelector, GenderSelector},
 
   computed: {
     dailyKcal() {
@@ -103,6 +126,7 @@ export default {
       const height = parseFloat(useConfigDietStore().getHeight())
       const age = useConfigDietStore().getAge()
       const weeklyActivity = parseFloat(useConfigDietStore().getWeeklyActivity())
+      const dietObjective = parseInt(useConfigDietStore().getDietObjective())
 
       let TMB = 0
 
@@ -112,7 +136,7 @@ export default {
         TMB = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
       }
 
-      return TMB * weeklyActivity
+      return TMB * weeklyActivity + dietObjective
     }
   },
 }

@@ -13,9 +13,18 @@ export const useConfigDietStore = defineStore("configDiet", {
         height: 130,
         width: 50,
         age: 30,
-        weeklyActivity: 1.55
+        weeklyActivity: 1.55,
+        dietObjective: 0
     }),
     actions: {
+        getDietObjective() {
+            return this.dietObjective
+        },
+
+        setDietObjective(dietObjective) {
+            this.dietObjective = dietObjective
+        },
+
         getWeeklyActivity() {
             return this.weeklyActivity
         },
@@ -129,3 +138,31 @@ export const useConfigDietStore = defineStore("configDiet", {
         }
     }
 })
+
+/*
+{
+    "nombre": "Ensalada de quinoa y aguacate",
+    "ingredientes": [
+      { "nombre": "Quinoa cocida", "cantidad": 1, "unidad": "taza" },
+      { "nombre": "Aguacate en cubos", "cantidad": 1, "unidad": "unidad" },
+      { "nombre": "Tomate en trozos", "cantidad": 1, "unidad": "unidad" },
+      { "nombre": "Cebolla roja picada", "cantidad": 0.5, "unidad": "taza" },
+      { "nombre": "Cilantro fresco picado", "cantidad": 2, "unidad": "cucharadas" },
+      { "nombre": "Jugo de limón", "cantidad": 2, "unidad": "cucharadas" },
+      { "nombre": "Aceite de oliva", "cantidad": 1, "unidad": "cucharada" },
+      { "nombre": "Sal", "cantidad": 0.5, "unidad": "cucharadita" },
+      { "nombre": "Pimienta", "cantidad": 0.25, "unidad": "cucharadita" }
+    ],
+    "pasos": ["Cocina la quinoa...", "Corta el aguacate...", "..."],
+    "kcal": 300,
+    "proteinas": 8,
+    "hidratos": 25,
+    "grasas": 18,
+    "saludable": 2,
+    "tiempo_preparacion_minutos": 15,
+    "dificultad": 1,
+    "alergenos": [cacahuete, frutossecos, mariscos, pescados, leche, huevos, trigo, soja],
+    "restricciones_alimentarias": ["vegetariana", "vegana", "glutenfree", "lacteosfree"],
+    "momento_del_dia": [desayuno, "almuerzo", "comida", merienda, cena]
+  },
+ */
