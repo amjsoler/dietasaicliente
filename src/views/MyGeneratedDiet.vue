@@ -1,5 +1,7 @@
 <template>
-  <day-of-week v-for="(dailyDiet, key) in useDietStore().diet.diet" :dailyDiet="dailyDiet" :day="key" :key="dailyDiet" />
+  <section>
+    <day-of-week v-for="(dailyDiet, key) in useDietStore().diet.diet" :dailyDiet="dailyDiet" :day="key" :key="dailyDiet" />
+  </section>
 </template>
 
 <script>

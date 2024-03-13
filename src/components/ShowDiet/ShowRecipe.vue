@@ -4,7 +4,6 @@
 </template>
 
 <script>
-  import router from "@/router/index.js";
   import { useDietStore } from "@/storage/diet.js";
 
   export default {

@@ -1,18 +1,20 @@
 <template>
-  <h1 class="text-2xl">{{recipe.name}}</h1>
+  <section>
+    <h1 class="text-2xl">{{recipe.name}}</h1>
 
-  <ingredients-list :ingredients="recipe.ingredients" />
+    <ingredients-list :ingredients="recipe.ingredients" />
 
-  <ul>
-    <li class="text-lg">⏱{{recipe.preparation_time}} mins</li>
-    <li class="text-lg">⏱{{recipe.healthyness}}</li>
-    <li class="text-lg">⏱{{recipe.foodRestrictions}}</li>
-    <li class="text-lg">⏱{{recipe.allergens}}</li>
-    <li class="text-lg">{{ `🔥 ${recipe.kcal} kcal (prot: ${recipe.protein} g, carbs: ${recipe.carbs} g, grasas: ${recipe.fat} g)` }}</li>
-    <li class="text-lg">⏱{{recipe.preparation_time}} mins</li>
-  </ul>
+    <ul>
+      <li class="text-lg">⏱{{recipe.preparation_time}} mins</li>
+      <li class="text-lg">⏱{{recipe.healthyness}}</li>
+      <li class="text-lg">⏱{{recipe.foodRestrictions}}</li>
+      <li class="text-lg">⏱{{recipe.allergens}}</li>
+      <li class="text-lg">{{ `🔥 ${recipe.kcal} kcal (prot: ${recipe.protein} g, carbs: ${recipe.carbs} g, grasas: ${recipe.fat} g)` }}</li>
+      <li class="text-lg">⏱{{recipe.preparation_time}} mins</li>
+    </ul>
 
-  <preparation-steps :steps="recipe.steps" />
+    <preparation-steps :steps="recipe.steps" />
+  </section>
 </template>
 
 <script>

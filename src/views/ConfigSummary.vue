@@ -1,77 +1,78 @@
 <template>
-  <div class="space-y-6">
-    <typography-variant variant="h2">
-      Resumen
-    </typography-variant>
-
-    <section>
-      <typography-variant variant="h3">
-        Dieta
+  <section>
+    <div class="space-y-6">
+      <typography-variant variant="h2">
+        Resumen
       </typography-variant>
 
+      <section>
+        <typography-variant variant="h3">
+          Dieta
+        </typography-variant>
 
-      <typography-variant variant="p">
-        Comidas incluídas: {{useConfigDietStore().MealsIncluded.toString()}}
-      </typography-variant>
 
-      <typography-variant variant="p">
-        Tipo de recetas: {{useConfigDietStore().getHealthyness()}}
-      </typography-variant>
+        <typography-variant variant="p">
+          Comidas incluídas: {{useConfigDietStore().MealsIncluded.toString()}}
+        </typography-variant>
 
-      <typography-variant variant="p">
-        Máximo tiempo de preparación por receta: {{useConfigDietStore().getMaxTime()}} mins.
-      </typography-variant>
+        <typography-variant variant="p">
+          Tipo de recetas: {{useConfigDietStore().getHealthyness()}}
+        </typography-variant>
 
-      <typography-variant variant="p">
-        Alergias: {{useConfigDietStore().getAllergies().toString()}}
-      </typography-variant>
+        <typography-variant variant="p">
+          Máximo tiempo de preparación por receta: {{useConfigDietStore().getMaxTime()}} mins.
+        </typography-variant>
 
-      <typography-variant variant="p">
-        Restricciones alimentarias: {{useConfigDietStore().getFoodRestrictions().toString()}}
-      </typography-variant>
+        <typography-variant variant="p">
+          Alergias: {{useConfigDietStore().getAllergies().toString()}}
+        </typography-variant>
 
-      <typography-variant variant="p">
-        Ingredientes excluidos: {{useConfigDietStore().getIngredientsExcluded().toString()}}
-      </typography-variant>
-    </section>
+        <typography-variant variant="p">
+          Restricciones alimentarias: {{useConfigDietStore().getFoodRestrictions().toString()}}
+        </typography-variant>
 
-    <section>
-      <typography-variant variant="h3">
-        Cálculo de calorías
-      </typography-variant>
+        <typography-variant variant="p">
+          Ingredientes excluidos: {{useConfigDietStore().getIngredientsExcluded().toString()}}
+        </typography-variant>
+      </section>
 
-      <typography-variant variant="p">
-        Género: {{useConfigDietStore().getGender()}}
-      </typography-variant>
+      <section>
+        <typography-variant variant="h3">
+          Cálculo de calorías
+        </typography-variant>
 
-      <typography-variant variant="p">
-        Edad: {{useConfigDietStore().getAge()}}
-      </typography-variant>
+        <typography-variant variant="p">
+          Género: {{useConfigDietStore().getGender()}}
+        </typography-variant>
 
-      <typography-variant variant="p">
-        Peso: {{useConfigDietStore().getWidth()}} kg.
-      </typography-variant>
+        <typography-variant variant="p">
+          Edad: {{useConfigDietStore().getAge()}}
+        </typography-variant>
 
-      <typography-variant variant="p">
-        Altura: {{useConfigDietStore().getHeight()}} cm.
-      </typography-variant>
+        <typography-variant variant="p">
+          Peso: {{useConfigDietStore().getWidth()}} kg.
+        </typography-variant>
 
-      <typography-variant variant="p">
-        Nivel de actividad: {{useConfigDietStore().getWeeklyActivity()}}
-      </typography-variant>
+        <typography-variant variant="p">
+          Altura: {{useConfigDietStore().getHeight()}} cm.
+        </typography-variant>
 
-      <typography-variant variant="p">
-        Objetivo: {{useConfigDietStore().getDietObjective()}}
-      </typography-variant>
-    </section>
-  </div>
+        <typography-variant variant="p">
+          Nivel de actividad: {{useConfigDietStore().getWeeklyActivity()}}
+        </typography-variant>
 
-  <div class="flex justify-center">
-    <button @click="generateDiet" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-      ¡Generar mi dieta!
-    </button>
-  </div>
+        <typography-variant variant="p">
+          Objetivo: {{useConfigDietStore().getDietObjective()}}
+        </typography-variant>
+      </section>
+    </div>
 
+    <div class="flex justify-center">
+      <button @click="generateDiet" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        ¡Generar mi dieta!
+      </button>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -80,7 +81,6 @@ import TypographyVariant from "@/components/TypographyVariant.vue";
 import { useConfigDietStore } from "../storage/configDiet.js";
 import axios from "axios";
 import { useDietStore } from "@/storage/diet.js";
-import router from "@/router/index.js";
 
 export default {
   name: 'ConfigSummary',
