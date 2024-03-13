@@ -5,6 +5,7 @@ import ConfigMacros from "@/views/ConfigMacros.vue";
 import ConfigSummary from "@/views/ConfigSummary.vue";
 import DameInserts from "@/views/DameInserts.vue";
 import MyGeneratedDiet from "@/views/MyGeneratedDiet.vue";
+import ViewRecipe from "@/views/ViewRecipe.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.VITE_BASE_URL),
@@ -34,6 +35,11 @@ const router = createRouter({
             path: "/generated-diet",
             name: "GeneratedDiet",
             component: MyGeneratedDiet
+        },
+        {
+            path: "/view-recipe",
+            name: "ViewRecipe",
+            component: ViewRecipe
         },
         {
             path: "/dame-inserts",
