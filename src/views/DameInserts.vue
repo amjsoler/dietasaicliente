@@ -1,11 +1,10 @@
 <template>
+  <h1>/*Ingredients*/</h1>
   <p v-for="ingrediente in ingredientes" :key="ingrediente">
-    {{ `insert into ingredients (name, unit) values ("${ingrediente.nombre}", "${ingrediente.unidad}");` }}
+    {{ `insert into ingredients (name, unit) values ('${ingrediente.nombre}', '${ingrediente.unidad}');` }}
   </p>
 
-
-  <hr>
-<h1>Recipes</h1>
+<h1>/*Recipes*/</h1>
   <p
    v-for="recipe in recipes" :key="recipe">
     {{ recipe }}
@@ -46,7 +45,7 @@ export default {
             $table->timestamps();
 
        */
-      this.recipes.push(`insert into name, ingredients, steps, kcal, protein, carbs, fat, healtyness, preparation_time, difficulty, allergens, food_restrictions, day_moment) values ("${recipe.nombre}", "${JSON.stringify(recipe.ingredientes)}", "${recipe.steps}", ${recipe.kcal}, ${recipe.proteinas}, ${recipe.hidratos}, ${recipe.grasas}, ${recipe.saludable}, ${recipe.tiempo_preparacion}, ${recipe.dificultad}, "${recipe.alergenos}", "${recipe.restricciones_alimentarias}", "${recipe.momento_dia}"`);
+      this.recipes.push(`insert into recipes (name, ingredients, steps, kcal, protein, carbs, fat, healthyness, preparation_time, difficulty, allergens, food_restrictions, day_moment) values ('${recipe.nombre}', '${JSON.stringify(recipe.ingredientes)}', '${JSON.stringify(recipe.pasos)}', ${recipe.kcal}, ${recipe.proteinas}, ${recipe.hidratos}, ${recipe.grasas}, ${recipe.saludable}, ${recipe.tiempo_preparacion_minutos}, ${recipe.dificultad}, '${recipe.alergenos.join(", ")}', '${recipe.restricciones_alimentarias.join(", ")}', '${recipe.momento_del_dia.join(", ")}');`);
 
 
 

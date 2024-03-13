@@ -14,7 +14,8 @@ export const useConfigDietStore = defineStore("configDiet", {
         width: 50,
         age: 30,
         weeklyActivity: 1.55,
-        dietObjective: 0
+        dietObjective: 0,
+        kcal: 0,
     }),
     actions: {
         getDietObjective() {

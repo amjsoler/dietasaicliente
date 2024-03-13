@@ -66,6 +66,11 @@
     </section>
   </div>
 
+  <div class="flex justify-center">
+    <button @click="generateDiet" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+      ¡Generar mi dieta!
+    </button>
+  </div>
 
 </template>
 
@@ -73,11 +78,40 @@
 
 import TypographyVariant from "@/components/TypographyVariant.vue";
 import { useConfigDietStore } from "../storage/configDiet.js";
+import axios from "axios";
+import { useDietStore } from "@/storage/diet.js";
+import router from "@/router/index.js";
 
 export default {
   name: 'ConfigSummary',
-  methods: { useConfigDietStore },
-  components: { TypographyVariant }
+  components: { TypographyVariant },
+
+  methods: {
+    useConfigDietStore,
+    generateDiet() {
+      console.log('Generando dieta...');
+
+      axios.post("http://localhost:8000/api/get-diet",
+        {
+          meals_included: useConfigDietStore().MealsIncluded,
+          healthyness: useConfigDietStore().getHealthyness(),
+          difficulty: useConfigDietStore().getDifficulty(),
+          kcal: useConfigDietStore().kcal,
+          max_time: useConfigDietStore().getMaxTime(),
+          allergies: useConfigDietStore().getAllergies(),
+          foodRestrictions: useConfigDietStore().getFoodRestrictions(),
+          ingredientsExcluded: useConfigDietStore().getIngredientsExcluded
+        })
+        .then(response => {
+          useDietStore().setDiet(response.data);
+
+          this.$router.push({ name: 'GeneratedDiet' });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
 }
 
 /*

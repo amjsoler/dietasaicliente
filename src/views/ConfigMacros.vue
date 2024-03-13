@@ -136,7 +136,11 @@ export default {
         TMB = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
       }
 
-      return TMB * weeklyActivity + dietObjective
+      const totalKCal = (Math.floor(TMB * weeklyActivity + dietObjective))
+
+      useConfigDietStore().kcal = totalKCal
+
+      return totalKCal
     }
   },
 }
