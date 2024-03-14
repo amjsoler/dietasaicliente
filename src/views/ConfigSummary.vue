@@ -1,98 +1,213 @@
 <template>
-  <section>
+  <section class="space-y-6">
     <div class="space-y-6">
-      <typography-variant variant="h2">
-        Resumen
-      </typography-variant>
+      <typography-variant variant="h2"> Resumen </typography-variant>
 
-      <section>
-        <typography-variant variant="h3">
-          Dieta
-        </typography-variant>
-
+      <section class="space-y-4">
+        <typography-variant variant="h3"> Dieta </typography-variant>
 
         <typography-variant variant="p">
-          Comidas incluídas: {{useConfigDietStore().MealsIncluded.toString()}}
+          <span class="font-semibold"> Comidas incluídas: </span>
+          <section class="flex flex-row gap-x-2 flex-wrap">
+            <span
+              class="capitalize"
+              v-for="(meal, index) in useConfigDietStore().MealsIncluded"
+              :key="meal"
+            >
+              {{ meal }}
+              <span
+                v-if="index !== useConfigDietStore().MealsIncluded.length - 1"
+              >
+                ,
+              </span>
+            </span>
+          </section>
+        </typography-variant>
+
+        <typography-variant class="font-semibold" variant="p">
+          {{
+            [
+              "Todo tipo de recetas 🍔 ⚖️ 💚",
+              "Recetas equillibradas ⚖️ 💚",
+              "Recetas saludables 💚",
+            ].at(useConfigDietStore().getHealthyness())
+          }}
         </typography-variant>
 
         <typography-variant variant="p">
-          Tipo de recetas: {{useConfigDietStore().getHealthyness()}}
+          Máximo
+          <span class="font-semibold"
+            >🕢 {{ useConfigDietStore().getMaxTime() }} mins/por receta</span
+          >
         </typography-variant>
 
         <typography-variant variant="p">
-          Máximo tiempo de preparación por receta: {{useConfigDietStore().getMaxTime()}} mins.
+          <span class="font-semibold">Alergias: </span>
+          <span v-if="useConfigDietStore().getAllergies().length === 0"
+            >Ninguna</span
+          >
+          <span
+            class="capitalize"
+            v-for="(alergia, index) in useConfigDietStore().getAllergies()"
+          >
+            {{ alergia }}
+            <span
+              v-if="index !== useConfigDietStore().getAllergies().length - 1"
+              >,
+            </span>
+          </span>
         </typography-variant>
 
         <typography-variant variant="p">
-          Alergias: {{useConfigDietStore().getAllergies().toString()}}
+          <span class="font-semibold">Restricciones alimentarias: </span>
+          <span v-if="useConfigDietStore().getFoodRestrictions().length === 0"
+            >Ninguna</span
+          >
+          <span
+            class="capitalize"
+            v-for="(
+              restriccion, index
+            ) in useConfigDietStore().getFoodRestrictions()"
+          >
+            {{ restriccion }}
+            <span
+              v-if="index !== useConfigDietStore().getAllergies().length - 1"
+              >,
+            </span>
+          </span>
         </typography-variant>
 
         <typography-variant variant="p">
-          Restricciones alimentarias: {{useConfigDietStore().getFoodRestrictions().toString()}}
-        </typography-variant>
-
-        <typography-variant variant="p">
-          Ingredientes excluidos: {{useConfigDietStore().getIngredientsExcluded().toString()}}
+          <span class="font-semibold">Ingredientes excluídos: </span>
+          <span
+            v-if="useConfigDietStore().getIngredientsExcluded().length === 0"
+            >Ninguno</span
+          >
+          <span
+            class="capitalize"
+            v-for="(
+              ingrediente, index
+            ) in useConfigDietStore().getIngredientsExcluded()"
+          >
+            {{ ingrediente }}
+            <span
+              v-if="
+                index !==
+                useConfigDietStore().getIngredientsExcluded().length - 1
+              "
+              >,
+            </span>
+          </span>
         </typography-variant>
       </section>
 
-      <section>
+      <section class="space-y-4">
         <typography-variant variant="h3">
           Cálculo de calorías
         </typography-variant>
 
-        <typography-variant variant="p">
-          Género: {{useConfigDietStore().getGender()}}
-        </typography-variant>
+        <section class="flex flex-row items-center gap-x-2 justify-center">
+          <typography-variant class="text-2xl" variant="p">
+            {{ { male: "♂", female: "♀" }[useConfigDietStore().getGender()] }}
+          </typography-variant>
+          |
+          <typography-variant variant="p">
+            {{ useConfigDietStore().getAge() }} años
+          </typography-variant>
+          |
+          <typography-variant variant="p">
+            {{ useConfigDietStore().getWidth() }} kg.
+          </typography-variant>
+          |
+          <typography-variant variant="p">
+            {{ useConfigDietStore().getHeight() }} cm.
+          </typography-variant>
+        </section>
 
-        <typography-variant variant="p">
-          Edad: {{useConfigDietStore().getAge()}}
-        </typography-variant>
-
-        <typography-variant variant="p">
-          Peso: {{useConfigDietStore().getWidth()}} kg.
-        </typography-variant>
-
-        <typography-variant variant="p">
-          Altura: {{useConfigDietStore().getHeight()}} cm.
-        </typography-variant>
-
-        <typography-variant variant="p">
-          Nivel de actividad: {{useConfigDietStore().getWeeklyActivity()}}
-        </typography-variant>
-
-        <typography-variant variant="p">
-          Objetivo: {{useConfigDietStore().getDietObjective()}}
-        </typography-variant>
+        <section
+          class="flex flex-row justify-center items-center gap-x-4 font-semibold"
+        >
+          <typography-variant variant="p">
+            {{
+              [
+                { name: "Sedentario", multiplier: 1.2 },
+                { name: "Levemente Activo", multiplier: 1.375 },
+                { name: "Moderadamente activo", multiplier: 1.55 },
+                { name: "Muy Activo", multiplier: 1.725 },
+                { name: "Extremadamente activo", multiplier: 1.9 },
+              ].find(
+                (activity) =>
+                  activity.multiplier ===
+                  useConfigDietStore().getWeeklyActivity(),
+              ).name
+            }}
+          </typography-variant>
+          |
+          <typography-variant variant="p">
+            {{
+              [
+                { name: "Bajar de peso", value: -350 },
+                { name: "Mantenerse", value: 0 },
+                { name: "Subir de peso", value: 350 },
+              ].find(
+                (objective) =>
+                  objective.value === useConfigDietStore().getDietObjective(),
+              ).name
+            }}
+          </typography-variant>
+        </section>
       </section>
     </div>
 
-    <div class="flex justify-center">
-      <button @click="generateDiet" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-        ¡Generar mi dieta!
+    <section class="space-y-4">
+      <typography-variant variant="h3">Calorías diarias</typography-variant>
+
+      <section class="flex flex-row justify-center items-center gap-x-4">
+        <span class="text-3xl font-bold">
+          {{ useConfigDietStore().kcal }} kcal
+        </span>
+      </section>
+    </section>
+    <div class="flex flex-col gap-y-6 justify-center">
+      <button
+        @click="restartConfigDiet"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+      >
+        ❌ Comenzar de nuevo
+      </button>
+      <button
+        @click="generateDiet"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-4 px-8 rounded"
+      >
+        ✅ ¡Generar mi dieta!
       </button>
     </div>
   </section>
 </template>
 
 <script>
-
 import TypographyVariant from "@/components/TypographyVariant.vue";
 import { useConfigDietStore } from "../storage/configDiet.js";
 import axios from "axios";
 import { useDietStore } from "@/storage/diet.js";
 
 export default {
-  name: 'ConfigSummary',
+  name: "ConfigSummary",
   components: { TypographyVariant },
 
   methods: {
     useConfigDietStore,
-    generateDiet() {
-      console.log('Generando dieta...');
+    restartConfigDiet() {
+      localStorage.removeItem("configDiet");
+      useConfigDietStore().$reset();
+      this.$router.push({ name: "ConfigDiet" });
+    },
 
-      axios.post("http://localhost:8000/api/get-diet",
-        {
+    generateDiet() {
+      console.log("Generando dieta...");
+
+      axios
+        .post("http://localhost:8000/api/get-diet", {
           meals_included: useConfigDietStore().MealsIncluded,
           healthyness: useConfigDietStore().getHealthyness(),
           difficulty: useConfigDietStore().getDifficulty(),
@@ -100,41 +215,17 @@ export default {
           max_time: useConfigDietStore().getMaxTime(),
           allergies: useConfigDietStore().getAllergies(),
           foodRestrictions: useConfigDietStore().getFoodRestrictions(),
-          ingredientsExcluded: useConfigDietStore().getIngredientsExcluded
+          ingredientsExcluded: useConfigDietStore().getIngredientsExcluded,
         })
-        .then(response => {
+        .then((response) => {
           useDietStore().setDiet(response.data);
 
-          this.$router.push({ name: 'GeneratedDiet' });
+          this.$router.push({ name: "GeneratedDiet" });
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
-    }
-  }
-}
-
-/*
-Información de usuario y ajustes de dieta:
-Nombre del usuario.
-Objetivo de la dieta (perder peso, mantener, ganar peso, ganar masa muscular).
-Cantidad de calorías diarias calculadas.
-Porcentajes de macronutrientes ajustados según el objetivo de la dieta.
-Cualquier preferencia de alimentos o restricción dietética proporcionada por el usuario.
-Resumen de ajustes de dieta:
-Gráficos o tablas resumiendo los porcentajes de proteínas, carbohidratos y grasas en la dieta.
-Información sobre el número de comidas diarias recomendadas y sus horarios (si aplica).
-Otros detalles relevantes de la dieta según las preferencias del usuario.
-Opciones de interacción:
-Botón "Borrar y empezar de nuevo": Permite al usuario eliminar toda la información ingresada y comenzar desde cero.
-Botón "Enviar dieta": Envía la solicitud de dieta al servidor para su procesamiento y generación.
-Mensaje de confirmación antes de enviar la dieta al servidor para asegurar que el usuario esté listo para continuar.
-Opcional: Resumen visual:
-Gráficos o imágenes que representen la distribución de macronutrientes en la dieta.
-Iconos o imágenes representativas del objetivo de la dieta (por ejemplo, una balanza para perder peso, pesas para ganar masa muscular, etc.).
-Instrucciones adicionales o consejos:
-Breve mensaje con instrucciones sobre qué hacer después de enviar la solicitud de dieta (por ejemplo, "¡Revise su bandeja de entrada para recibir su dieta personalizada!").
-Consejos generales sobre cómo seguir y mantener la dieta.
-Asegúrate de que la pantalla resumen sea fácil de leer y que todos los detalles importantes estén claramente visibles. Esto ayudará a garantizar que el usuario esté completamente informado antes de confirmar y enviar su solicitud de dieta.
- */
+    },
+  },
+};
 </script>

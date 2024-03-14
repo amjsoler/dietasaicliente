@@ -1,144 +1,181 @@
-import {defineStore} from "pinia";
+import { defineStore } from "pinia";
 
 export const useConfigDietStore = defineStore("configDiet", {
-    state: () => ({
-        MealsIncluded: localStorage.getItem("configDiet") ? JSON.parse(localStorage.getItem("configDiet")).MealsIncluded : ["desayuno","almuerzo", "comida", "merienda", "cena"],
-        Healthyness: localStorage.getItem("configDiet") ? JSON.parse(localStorage.getItem("configDiet")).Healthyness : 1,
-        MaxTime: localStorage.getItem("configDiet") ? JSON.parse(localStorage.getItem("configDiet")).MaxTime : 30,
-        Difficulty: localStorage.getItem("configDiet") ? JSON.parse(localStorage.getItem("configDiet")).Difficulty : 1,
-        Allergies: localStorage.getItem("configDiet") ? JSON.parse(localStorage.getItem("configDiet")).Allergies : [],
-        FoodRestrictions: localStorage.getItem("configDiet") ? JSON.parse(localStorage.getItem("configDiet")).FoodRestrictions : [],
-        IngredientsExcluded: localStorage.getItem("configDiet") ? JSON.parse(localStorage.getItem("configDiet")).IngredientsExcluded : [],
-        gender: localStorage.getItem("configDiet") ? JSON.parse(localStorage.getItem("configDiet")).gender : "female",
-        height: localStorage.getItem("configDiet") ? JSON.parse(localStorage.getItem("configDiet")).height : 130,
-        width: localStorage.getItem("configDiet") ? JSON.parse(localStorage.getItem("configDiet")).width : 50,
-        age: localStorage.getItem("configDiet") ? JSON.parse(localStorage.getItem("configDiet")).age : 20,
-        weeklyActivity: localStorage.getItem("configDiet") ? JSON.parse(localStorage.getItem("configDiet")).weeklyActivity : 1.55,
-        dietObjective: localStorage.getItem("configDiet") ? JSON.parse(localStorage.getItem("configDiet")).dietObjective : 0,
-        kcal: localStorage.getItem("configDiet") ? JSON.parse(localStorage.getItem("configDiet")).kcal : 0,
-    }),
-    actions: {
-        getDietObjective() {
-            return this.dietObjective
-        },
+  state: () => ({
+    MealsIncluded: localStorage.getItem("configDiet")
+      ? JSON.parse(localStorage.getItem("configDiet")).MealsIncluded
+      : ["desayuno", "almuerzo", "comida", "merienda", "cena"],
+    Healthyness: localStorage.getItem("configDiet")
+      ? JSON.parse(localStorage.getItem("configDiet")).Healthyness
+      : 1,
+    MaxTime: localStorage.getItem("configDiet")
+      ? JSON.parse(localStorage.getItem("configDiet")).MaxTime
+      : 30,
+    Difficulty: localStorage.getItem("configDiet")
+      ? JSON.parse(localStorage.getItem("configDiet")).Difficulty
+      : 1,
+    Allergies: localStorage.getItem("configDiet")
+      ? JSON.parse(localStorage.getItem("configDiet")).Allergies
+      : [],
+    FoodRestrictions: localStorage.getItem("configDiet")
+      ? JSON.parse(localStorage.getItem("configDiet")).FoodRestrictions
+      : [],
+    IngredientsExcluded: localStorage.getItem("configDiet")
+      ? JSON.parse(localStorage.getItem("configDiet")).IngredientsExcluded
+      : [],
+    gender: localStorage.getItem("configDiet")
+      ? JSON.parse(localStorage.getItem("configDiet")).gender
+      : "female",
+    height: localStorage.getItem("configDiet")
+      ? JSON.parse(localStorage.getItem("configDiet")).height
+      : 130,
+    width: localStorage.getItem("configDiet")
+      ? JSON.parse(localStorage.getItem("configDiet")).width
+      : 50,
+    age: localStorage.getItem("configDiet")
+      ? JSON.parse(localStorage.getItem("configDiet")).age
+      : 20,
+    weeklyActivity: localStorage.getItem("configDiet")
+      ? JSON.parse(localStorage.getItem("configDiet")).weeklyActivity
+      : 1.55,
+    dietObjective: localStorage.getItem("configDiet")
+      ? JSON.parse(localStorage.getItem("configDiet")).dietObjective
+      : 0,
+    kcal: localStorage.getItem("configDiet")
+      ? JSON.parse(localStorage.getItem("configDiet")).kcal
+      : 0,
+  }),
+  actions: {
+    restart() {
+      useConfigDietStore().$state = null;
+    },
 
-        setDietObjective(dietObjective) {
-            this.dietObjective = dietObjective
-        },
+    getDietObjective() {
+      return this.dietObjective;
+    },
 
-        getWeeklyActivity() {
-            return this.weeklyActivity
-        },
+    setDietObjective(dietObjective) {
+      this.dietObjective = dietObjective;
+    },
 
-        setWeeklyActivity(weeklyActivity) {
-            this.weeklyActivity = weeklyActivity
-        },
+    getWeeklyActivity() {
+      return this.weeklyActivity;
+    },
 
-        getAge() {
-            return this.age
-        },
+    setWeeklyActivity(weeklyActivity) {
+      this.weeklyActivity = weeklyActivity;
+    },
 
-        setAge(age) {
-            this.age = age
-        },
+    getAge() {
+      return this.age;
+    },
 
-        getWidth() {
-            return this.width
-        },
+    setAge(age) {
+      this.age = age;
+    },
 
-        setWidth(width) {
-            this.width = width
-        },
+    getWidth() {
+      return this.width;
+    },
 
-        getHeight() {
-            return this.height
-        },
+    setWidth(width) {
+      this.width = width;
+    },
 
-        setHeight(height) {
-            this.height = height
-        },
+    getHeight() {
+      return this.height;
+    },
 
-        getGender() {
-            return this.gender
-        },
+    setHeight(height) {
+      this.height = height;
+    },
 
-        toggleGender() {
-            if(this.gender === "female")
-                this.gender = "male"
-            else{
-                this.gender = "female"
-            }
-        },
+    getGender() {
+      return this.gender;
+    },
 
-        getIngredientsExcluded() {
-            return this.IngredientsExcluded;
-        },
+    toggleGender() {
+      if (this.gender === "female") this.gender = "male";
+      else {
+        this.gender = "female";
+      }
+    },
 
-        addIngredientExcluded(ingredient) {
-            this.IngredientsExcluded.push(ingredient);
-        },
+    getIngredientsExcluded() {
+      return this.IngredientsExcluded;
+    },
 
-        removeIngredientExcluded(ingredient) {
-            this.IngredientsExcluded.splice(this.IngredientsExcluded.indexOf(ingredient), 1);
-        },
+    addIngredientExcluded(ingredient) {
+      this.IngredientsExcluded.push(ingredient);
+    },
 
-        getFoodRestrictions() {
-            return this.FoodRestrictions;
-        },
+    removeIngredientExcluded(ingredient) {
+      this.IngredientsExcluded.splice(
+        this.IngredientsExcluded.indexOf(ingredient),
+        1,
+      );
+    },
 
-        addFoodRestriction(foodRestriction) {
-            this.FoodRestrictions.push(foodRestriction);
-        },
+    getFoodRestrictions() {
+      return this.FoodRestrictions;
+    },
 
-        removeFoodRestriction(foodRestriction) {
-            this.FoodRestrictions.splice(this.FoodRestrictions.indexOf(foodRestriction), 1);
-        },
+    addFoodRestriction(foodRestriction) {
+      this.FoodRestrictions.push(foodRestriction);
+    },
 
-        addAllergy(allergy) {
-            this.Allergies.push(allergy);
-        },
+    removeFoodRestriction(foodRestriction) {
+      this.FoodRestrictions.splice(
+        this.FoodRestrictions.indexOf(foodRestriction),
+        1,
+      );
+    },
 
-        removeAllergy(allergy) {
-            this.Allergies.splice(this.Allergies.indexOf(allergy), 1);
-        },
+    addAllergy(allergy) {
+      this.Allergies.push(allergy);
+    },
 
-        getAllergies() {
-            return this.Allergies;
-        },
+    removeAllergy(allergy) {
+      this.Allergies.splice(this.Allergies.indexOf(allergy), 1);
+    },
 
-        addMeal(meal) {
-            this.MealsIncluded.push(meal);
-        },
+    getAllergies() {
+      return this.Allergies;
+    },
 
-        removeMeal(meal) {
-            this.MealsIncluded = this.MealsIncluded.filter((m) => m !== meal);
-        },
+    addMeal(meal) {
+      this.MealsIncluded.push(meal);
+    },
 
-        getHealthyness() {
-            return this.Healthyness;
-        },
+    removeMeal(meal) {
+      this.MealsIncluded = this.MealsIncluded.filter((m) => m !== meal);
+    },
 
-        setHealthyness(healthyness) {
-            this.Healthyness = healthyness;
-        },
+    getHealthyness() {
+      return this.Healthyness;
+    },
 
-        getMaxTime() {
-            return this.MaxTime;
-        },
+    setHealthyness(healthyness) {
+      this.Healthyness = healthyness;
+    },
 
-        setMaxTime(maxTime) {
-            this.MaxTime = maxTime;
-        },
+    getMaxTime() {
+      return this.MaxTime;
+    },
 
-        getDifficulty() {
-            return this.Difficulty;
-        },
+    setMaxTime(maxTime) {
+      this.MaxTime = maxTime;
+    },
 
-        setDifficulty(difficulty) {
-            this.Difficulty = difficulty;
-        }
-    }
-})
+    getDifficulty() {
+      return this.Difficulty;
+    },
+
+    setDifficulty(difficulty) {
+      this.Difficulty = difficulty;
+    },
+  },
+});
 
 /*
 {
