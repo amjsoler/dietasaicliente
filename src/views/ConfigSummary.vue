@@ -181,12 +181,21 @@
         ❌ Comenzar de nuevo
       </button>
       <button
+        v-if="!errorRequest"
         @click="generateDiet"
         class="bg-green-500 hover:bg-green-700 text-white font-bold py-4 px-8 rounded"
       >
         ✅ ¡Generar mi dieta!
       </button>
-      <span id="response-error"></span>
+      <span
+        v-else
+        id="response-error"
+        class="font-semibold text-red-700/80 text-center"
+      >
+        <span class="font-bold">¡Ups!</span> Parece que no hemos podido
+        encontrar una combinación de recetas que cumpla con tus requisitos. Por
+        favor, intenta abrir un poco tus posibilidades
+      </span>
     </div>
   </section>
 </template>
@@ -201,6 +210,12 @@ import router from "@/router/index.js";
 export default {
   name: "ConfigSummary",
   components: { TypographyVariant },
+
+  data() {
+    return {
+      errorRequest: null,
+    };
+  },
 
   methods: {
     router() {
@@ -233,8 +248,7 @@ export default {
           this.$router.push({ name: "GeneratedDiet" });
         })
         .catch(() => {
-          document.getElementById("response-error").innerHTML =
-            "<span class='text-red-700 text-lg font-semibold'><span class='font-bold'>¡Ups!</span> Parece que no hemos podido encontrar una combinación de recetas que cumpla con tus requisitos. Por favor, intenta abrir un poco tus posibilidades</span>";
+          this.errorRequest = true;
         });
     },
   },
