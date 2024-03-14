@@ -48,6 +48,7 @@
           >
           <span
             class="capitalize"
+            :key="alergia"
             v-for="(alergia, index) in useConfigDietStore().getAllergies()"
           >
             {{ alergia }}
@@ -65,6 +66,7 @@
           >
           <span
             class="capitalize"
+            :key="restriccion"
             v-for="(
               restriccion, index
             ) in useConfigDietStore().getFoodRestrictions()"
@@ -85,6 +87,7 @@
           >
           <span
             class="capitalize"
+            :key="ingrediente"
             v-for="(
               ingrediente, index
             ) in useConfigDietStore().getIngredientsExcluded()"
@@ -181,6 +184,7 @@
       >
         ✅ ¡Generar mi dieta!
       </button>
+      <span id="response-error"></span>
     </div>
   </section>
 </template>
@@ -222,8 +226,9 @@ export default {
 
           this.$router.push({ name: "GeneratedDiet" });
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          document.getElementById("response-error").innerHTML =
+            "<span class='text-red-700 text-lg font-semibold'><span class='font-bold'>¡Ups!</span> Parece que no hemos podido encontrar una combinación de recetas que cumpla con tus requisitos. Por favor, intenta abrir un poco tus posibilidades</span>";
         });
     },
   },
