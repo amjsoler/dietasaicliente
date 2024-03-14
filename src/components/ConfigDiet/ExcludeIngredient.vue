@@ -209,6 +209,7 @@ export default {
   methods: {
     selectIngredient(ingredientCode) {
       useConfigDietStore().addIngredientExcluded(ingredientCode);
+      this.search = "";
     },
 
     removeSelectIngredient(ingredientCode) {

@@ -107,7 +107,7 @@
     <section class="flex flex-col items-center">
       <typography-variant variant="h3"> Calorías diarias </typography-variant>
       <p class="text-3xl font-bold">
-        {{ Math.floor(dailyKcal) }} <span class="text-xl">Kcal</span>
+        {{ tweened.toFixed(0) }} <span class="text-xl">Kcal</span>
       </p>
     </section>
 
@@ -132,6 +132,7 @@ import TypographyVariant from "@/components/TypographyVariant.vue";
 import { useConfigDietStore } from "@/storage/configDiet.js";
 import DietObjective from "@/components/ConfigMacros/DietObjective.vue";
 import router from "@/router/index.js";
+import gsap from "gsap";
 
 export default {
   name: "ConfigMacros",
@@ -148,6 +149,12 @@ export default {
     WeightSelector,
     HeighSelector,
     GenderSelector,
+  },
+
+  data() {
+    return {
+      tweened: useConfigDietStore().kcal,
+    };
   },
 
   computed: {
@@ -174,6 +181,12 @@ export default {
       useConfigDietStore().kcal = totalKCal;
 
       return totalKCal;
+    },
+  },
+
+  watch: {
+    dailyKcal(n) {
+      gsap.to(this, { duration: 0.5, tweened: Number(n) || 0 });
     },
   },
 };
