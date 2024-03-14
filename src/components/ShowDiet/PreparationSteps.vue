@@ -1,20 +1,24 @@
 <template>
-  <div>
-    <h2 class="text-xl font-bold mt-4">Preparation Steps</h2>
-    <ol class="list-inside list-decimal">
+  <section class="space-y-4">
+    <typography-variant variant="h3"> Preparación </typography-variant>
+
+    <ol class="list-inside list-decimal space-y-3">
       <li v-for="step in steps" :key="step">{{ step }}</li>
     </ol>
-  </div>
+  </section>
 </template>
 
 <script>
+import TypographyVariant from "@/components/TypographyVariant.vue";
+
 export default {
-  name: 'PreparationSteps',
+  name: "PreparationSteps",
+  components: { TypographyVariant },
   props: {
     steps: {
       type: Array,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};
 </script>

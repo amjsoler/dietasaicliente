@@ -1,17 +1,21 @@
 <template>
   <section>
-    <day-of-week v-for="(dailyDiet, key) in useDietStore().diet.diet" :dailyDiet="dailyDiet" :day="key" :key="dailyDiet" />
+    <day-of-week
+      v-for="(dailyDiet, key) in useDietStore().diet"
+      :dailyDiet="dailyDiet"
+      :day="key"
+      :key="dailyDiet"
+    />
   </section>
 </template>
 
 <script>
-import { useDietStore } from "../storage/diet.js";
 import DayOfWeek from "@/components/ShowDiet/DayOfWeek.vue";
+import { useDietStore } from "@/storage/diet.js";
 
 export default {
-  name: 'MyGeneratedDiet',
-  components: { DayOfWeek },
+  name: "MyGeneratedDiet",
   methods: { useDietStore },
-
-}
+  components: { DayOfWeek },
+};
 </script>

@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@fontsource/plus-jakarta-sans": "^5.0.19",
+    "@fontsource-variable/plus-jakarta-sans": "^5.0.20",
     "axios": "^1.6.7",
     "flowbite": "^2.3.0",
     "pinia": "^2.1.7",

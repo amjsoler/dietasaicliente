@@ -1,18 +1,19 @@
-import {defineStore} from "pinia";
+import { defineStore } from "pinia";
 
-export const useDietStore = defineStore("diet", {
-    state: () => ({
-        diet: JSON.parse(localStorage.getItem("diet")),
-        viewingRecipe: JSON.parse(localStorage.getItem("viewingRecipe"))
-    }),
+export const useDietStore = defineStore("dietStore", {
+  state: () => ({
+    diet: JSON.parse(localStorage.getItem("diet")),
+    viewingRecipe: JSON.parse(localStorage.getItem("viewingRecipe")),
+    viewingDay: 0,
+  }),
 
-    actions: {
-        getDiet() {
-            return this.diet
-        },
+  actions: {
+    getDiet() {
+      return this.diet;
+    },
 
-        setDiet(diet) {
-            this.diet = diet
-        }
-    }
-})
+    setDiet(diet) {
+      this.diet = diet;
+    },
+  },
+});
