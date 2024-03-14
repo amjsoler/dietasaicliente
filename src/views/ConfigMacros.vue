@@ -1,73 +1,93 @@
 <template>
   <div class="space-y-8">
-    <typography-variant variant="h2">
-      Cálculo de calorías
-    </typography-variant>
+    <typography-variant variant="h2"> Cálculo de calorías </typography-variant>
 
     <section class="space-y-6">
-      <typography-variant variant="h3">
-        Genero
-      </typography-variant>
+      <typography-variant variant="h3"> Genero </typography-variant>
       <gender-selector />
     </section>
 
     <section class="space-y-6">
-      <typography-variant variant="h3">
-        Altura
-      </typography-variant>
+      <typography-variant variant="h3"> Altura </typography-variant>
       <heigh-selector />
     </section>
 
     <section class="space-y-6">
-      <typography-variant variant="h3">
-        Peso
-      </typography-variant>
+      <typography-variant variant="h3"> Peso </typography-variant>
       <weight-selector />
     </section>
 
     <section class="space-y-6">
-      <typography-variant variant="h3">
-        Edad
-      </typography-variant>
+      <typography-variant variant="h3"> Edad </typography-variant>
       <age-selector />
     </section>
 
     <section class="space-y-6 relative">
-      <typography-variant variant="h3">
-        Actividad física
-      </typography-variant>
+      <typography-variant variant="h3"> Actividad física </typography-variant>
       <div class="absolute top-0 right-0 !mt-0">
-        <p class="flex items-center absolute top-0 right-0 text-gray-500 dark:text-gray-400">
-          <button data-popover-target="popover-weekly-activity-description" data-popover-placement="bottom-end" type="button">
+        <p
+          class="flex items-center absolute top-0 right-0 text-gray-500 dark:text-gray-400"
+        >
+          <button
+            data-popover-target="popover-weekly-activity-description"
+            data-popover-placement="bottom-end"
+            type="button"
+          >
             ℹ️
           </button>
         </p>
-        <div data-popover id="popover-weekly-activity-description" role="tooltip" class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+        <div
+          data-popover
+          id="popover-weekly-activity-description"
+          role="tooltip"
+          class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400"
+        >
           <div class="p-3 space-y-2">
             <ul class="space-y-6">
               <li>
-                <h4 class="text-lg font-semibold ">Sedentario</h4>
-                <p>Poco o ningún ejercicio</p>
+                <typography-variant variant="h4">
+                  Sedentario
+                </typography-variant>
+                <typography-variant variant="p">
+                  Poco o ningún ejercicio
+                </typography-variant>
               </li>
 
               <li>
-                <h4 class="text-lg font-semibold ">Lévemente activo</h4>
-                <p>Ejercicio ligero. Deporte de 1 a 3 días por semana</p>
+                <typography-variant variant="h4">
+                  Lévemente activo
+                </typography-variant>
+                <typography-variant variant="p">
+                  Ejercicio ligero. Deporte de 1 a 3 días por semana
+                </typography-variant>
               </li>
 
               <li>
-                <h4 class="text-lg font-semibold ">Lévemente activo</h4>
-                <p>Ejercicio moderado. Deporte de 3 a 5 días por semana</p>
+                <typography-variant variant="h4">
+                  Lévemente activo
+                </typography-variant>
+                <typography-variant variant="p">
+                  Ejercicio moderado. Deporte de 3 a 5 días por semana
+                </typography-variant>
               </li>
 
               <li>
-                <h4 class="text-lg font-semibold ">Muy activo</h4>
-                <p>Ejercicio duro. Deporte de 6 a 7 días por semana</p>
+                <typography-variant variant="h4">
+                  Muy activo
+                </typography-variant>
+                <typography-variant variant="p">
+                  Ejercicio duro. Deporte de 6 a 7 días por semana
+                </typography-variant>
               </li>
 
               <li>
-                <h4 class="text-lg font-semibold ">Extremadamente activo</h4>
-                <p>Ejercicio muy duro / deportes y trabajo físico diario o dos veces al día, entrenamientos de alto rendimiento</p>
+                <typography-variant variant="h4">
+                  Extremadamente activo
+                </typography-variant>
+                <typography-variant variant="p">
+                  Ejercicio muy duro / deportes y trabajo físico diario o dos
+                  veces al día, entrenamientos de alto rendimiento
+                </typography-variant>
               </li>
             </ul>
           </div>
@@ -85,14 +105,19 @@
     </section>
 
     <section class="flex flex-col items-center">
-      <typography-variant variant="h3">
-        Calorías diarias
-      </typography-variant>
-      <p class="text-3xl font-bold ">{{ Math.floor(dailyKcal) }} <span class="text-xl">Kcal</span></p>
+      <typography-variant variant="h3"> Calorías diarias </typography-variant>
+      <p class="text-3xl font-bold">
+        {{ Math.floor(dailyKcal) }} <span class="text-xl">Kcal</span>
+      </p>
     </section>
 
     <p class="flex justify-center">
-      <button @click="router().push({name: 'ConfigSummary'})" class=" text-4xl">➡️</button>
+      <button
+        @click="router().push({ name: 'ConfigSummary' })"
+        class="text-4xl"
+      >
+        ➡️
+      </button>
     </p>
   </div>
 </template>
@@ -109,42 +134,49 @@ import DietObjective from "@/components/ConfigMacros/DietObjective.vue";
 import router from "@/router/index.js";
 
 export default {
-  name: 'ConfigMacros',
+  name: "ConfigMacros",
   methods: {
     router() {
-      return router
-    }
+      return router;
+    },
   },
   components: {
     DietObjective,
-    TypographyVariant, WeeklyActivity, AgeSelector, WeightSelector, HeighSelector, GenderSelector},
+    TypographyVariant,
+    WeeklyActivity,
+    AgeSelector,
+    WeightSelector,
+    HeighSelector,
+    GenderSelector,
+  },
 
   computed: {
     dailyKcal() {
-      const gender = useConfigDietStore().getGender()
-      const weight = parseFloat(useConfigDietStore().getWidth())
-      const height = parseFloat(useConfigDietStore().getHeight())
-      const age = useConfigDietStore().getAge()
-      const weeklyActivity = parseFloat(useConfigDietStore().getWeeklyActivity())
-      const dietObjective = parseInt(useConfigDietStore().getDietObjective())
+      const gender = useConfigDietStore().getGender();
+      const weight = parseFloat(useConfigDietStore().getWidth());
+      const height = parseFloat(useConfigDietStore().getHeight());
+      const age = useConfigDietStore().getAge();
+      const weeklyActivity = parseFloat(
+        useConfigDietStore().getWeeklyActivity(),
+      );
+      const dietObjective = parseInt(useConfigDietStore().getDietObjective());
 
-      let TMB = 0
+      let TMB = 0;
 
-      if(gender === "male"){
-        TMB = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
-      }else{
-        TMB = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
+      if (gender === "male") {
+        TMB = 88.362 + 13.397 * weight + 4.799 * height - 5.677 * age;
+      } else {
+        TMB = 447.593 + 9.247 * weight + 3.098 * height - 4.33 * age;
       }
 
-      const totalKCal = (Math.floor(TMB * weeklyActivity + dietObjective))
+      const totalKCal = Math.floor(TMB * weeklyActivity + dietObjective);
 
-      useConfigDietStore().kcal = totalKCal
+      useConfigDietStore().kcal = totalKCal;
 
-      return totalKCal
-    }
+      return totalKCal;
+    },
   },
-}
-
+};
 
 /**
  * - genero
