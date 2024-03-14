@@ -10,7 +10,9 @@
         v-for="ingredient in selectedIngredients"
         v-bind:key="ingredient"
       >
-        {{ options.find((option) => option.code === ingredient).name }}
+        {{
+          availableIngredients.find((option) => option.name === ingredient).name
+        }}
         <span class="text-xs ms-2">❌</span>
       </li>
     </ul>
@@ -32,14 +34,14 @@
     >
       <li
         class="hidden has-[span]:block"
-        @click="selectIngredient(option.code)"
-        v-for="option in options"
-        v-bind:key="option.code"
+        @click="selectIngredient(option.name)"
+        v-for="option in availableIngredients"
+        :key="option.name"
       >
         <span
           v-if="
             option.name.toLowerCase().includes(search.toLowerCase()) &&
-            !selectedIngredients.includes(option.code)
+            !selectedIngredients.includes(option.name)
           "
           class="flex flex-row items-center justify-center border-2 border-primary-100 rounded-lg px-4 py-2"
         >
@@ -73,6 +75,7 @@
 <script>
 import { useConfigDietStore } from "@/storage/configDiet.js";
 import TypographyVariant from "@/components/TypographyVariant.vue";
+import axios from "axios";
 
 export default {
   name: "ExcludeIngredient",
@@ -80,132 +83,19 @@ export default {
 
   data() {
     return {
-      //TODO: Leer esto del servicio
-      options: [
-        { name: "Manzana", code: "manzana" },
-        { name: "Chocolate", code: "chocolate" },
-        { name: "Pescado", code: "pescado" },
-        { name: "Marisco", code: "marisco" },
-        { name: "Jamón", code: "jamon" },
-        { name: "Cerdo", code: "cerdo" },
-        { name: "Pollo", code: "pollo" },
-        { name: "Ternera", code: "ternera" },
-        { name: "Cordero", code: "cordero" },
-        { name: "Conejo", code: "conejo" },
-        { name: "Pavo", code: "pavo" },
-        { name: "Pato", code: "pato" },
-        { name: "Ganso", code: "ganso" },
-        { name: "Manzana", code: "manzana" },
-        { name: "Chocolate", code: "chocolate" },
-        { name: "Pescado", code: "pescado" },
-        { name: "Marisco", code: "marisco" },
-        { name: "Jamón", code: "jamon" },
-        { name: "Cerdo", code: "cerdo" },
-        { name: "Pollo", code: "pollo" },
-        { name: "Ternera", code: "ternera" },
-        { name: "Cordero", code: "cordero" },
-        { name: "Conejo", code: "conejo" },
-        { name: "Pavo", code: "pavo" },
-        { name: "Pato", code: "pato" },
-        { name: "Ganso", code: "ganso" },
-        { name: "Manzana", code: "manzana" },
-        { name: "Chocolate", code: "chocolate" },
-        { name: "Pescado", code: "pescado" },
-        { name: "Marisco", code: "marisco" },
-        { name: "Jamón", code: "jamon" },
-        { name: "Cerdo", code: "cerdo" },
-        { name: "Pollo", code: "pollo" },
-        { name: "Ternera", code: "ternera" },
-        { name: "Cordero", code: "cordero" },
-        { name: "Conejo", code: "conejo" },
-        { name: "Pavo", code: "pavo" },
-        { name: "Pato", code: "pato" },
-        { name: "Ganso", code: "ganso" },
-        { name: "Manzana", code: "manzana" },
-        { name: "Chocolate", code: "chocolate" },
-        { name: "Pescado", code: "pescado" },
-        { name: "Marisco", code: "marisco" },
-        { name: "Jamón", code: "jamon" },
-        { name: "Cerdo", code: "cerdo" },
-        { name: "Pollo", code: "pollo" },
-        { name: "Ternera", code: "ternera" },
-        { name: "Cordero", code: "cordero" },
-        { name: "Conejo", code: "conejo" },
-        { name: "Pavo", code: "pavo" },
-        { name: "Pato", code: "pato" },
-        { name: "Ganso", code: "ganso" },
-        { name: "Manzana", code: "manzana" },
-        { name: "Chocolate", code: "chocolate" },
-        { name: "Pescado", code: "pescado" },
-        { name: "Marisco", code: "marisco" },
-        { name: "Jamón", code: "jamon" },
-        { name: "Cerdo", code: "cerdo" },
-        { name: "Pollo", code: "pollo" },
-        { name: "Ternera", code: "ternera" },
-        { name: "Cordero", code: "cordero" },
-        { name: "Conejo", code: "conejo" },
-        { name: "Pavo", code: "pavo" },
-        { name: "Pato", code: "pato" },
-        { name: "Ganso", code: "ganso" },
-        { name: "Manzana", code: "manzana" },
-        { name: "Chocolate", code: "chocolate" },
-        { name: "Pescado", code: "pescado" },
-        { name: "Marisco", code: "marisco" },
-        { name: "Jamón", code: "jamon" },
-        { name: "Cerdo", code: "cerdo" },
-        { name: "Pollo", code: "pollo" },
-        { name: "Ternera", code: "ternera" },
-        { name: "Cordero", code: "cordero" },
-        { name: "Conejo", code: "conejo" },
-        { name: "Pavo", code: "pavo" },
-        { name: "Pato", code: "pato" },
-        { name: "Ganso", code: "ganso" },
-        { name: "Manzana", code: "manzana" },
-        { name: "Chocolate", code: "chocolate" },
-        { name: "Pescado", code: "pescado" },
-        { name: "Marisco", code: "marisco" },
-        { name: "Jamón", code: "jamon" },
-        { name: "Cerdo", code: "cerdo" },
-        { name: "Pollo", code: "pollo" },
-        { name: "Ternera", code: "ternera" },
-        { name: "Cordero", code: "cordero" },
-        { name: "Conejo", code: "conejo" },
-        { name: "Pavo", code: "pavo" },
-        { name: "Pato", code: "pato" },
-        { name: "Ganso", code: "ganso" },
-        { name: "Manzana", code: "manzana" },
-        { name: "Chocolate", code: "chocolate" },
-        { name: "Pescado", code: "pescado" },
-        { name: "Marisco", code: "marisco" },
-        { name: "Jamón", code: "jamon" },
-        { name: "Cerdo", code: "cerdo" },
-        { name: "Pollo", code: "pollo" },
-        { name: "Ternera", code: "ternera" },
-        { name: "Cordero", code: "cordero" },
-        { name: "Conejo", code: "conejo" },
-        { name: "Pavo", code: "pavo" },
-        { name: "Pato", code: "pato" },
-        { name: "Ganso", code: "ganso" },
-        { name: "Manzana", code: "manzana" },
-        { name: "Chocolate", code: "chocolate" },
-        { name: "Pescado", code: "pescado" },
-        { name: "Marisco", code: "marisco" },
-        { name: "Jamón", code: "jamon" },
-        { name: "Cerdo", code: "cerdo" },
-        { name: "Pollo", code: "pollo" },
-        { name: "Ternera", code: "ternera" },
-        { name: "Cordero", code: "cordero" },
-        { name: "Conejo", code: "conejo" },
-        { name: "Pavo", code: "pavo" },
-        { name: "Pato", code: "pato" },
-        { name: "Ganso", code: "ganso" },
-      ],
+      availableIngredients: [],
 
       selectedIngredients: useConfigDietStore().getIngredientsExcluded(),
 
       search: "",
     };
   },
+  mounted() {
+    axios.get("http://localhost:8000/api/ingredients").then((response) => {
+      this.availableIngredients = response.data;
+    });
+  },
+
   methods: {
     selectIngredient(ingredientCode) {
       useConfigDietStore().addIngredientExcluded(ingredientCode);

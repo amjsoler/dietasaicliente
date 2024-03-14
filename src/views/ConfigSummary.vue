@@ -1,5 +1,7 @@
 <template>
   <section class="space-y-6">
+    <p @click="router().push({ name: 'ConfigMacros' })">⬅️</p>
+
     <div class="space-y-6">
       <typography-variant variant="h2"> Resumen </typography-variant>
 
@@ -194,12 +196,16 @@ import TypographyVariant from "@/components/TypographyVariant.vue";
 import { useConfigDietStore } from "../storage/configDiet.js";
 import axios from "axios";
 import { useDietStore } from "@/storage/diet.js";
+import router from "@/router/index.js";
 
 export default {
   name: "ConfigSummary",
   components: { TypographyVariant },
 
   methods: {
+    router() {
+      return router;
+    },
     useConfigDietStore,
     restartConfigDiet() {
       localStorage.removeItem("configDiet");

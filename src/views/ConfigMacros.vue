@@ -1,5 +1,7 @@
 <template>
   <div class="space-y-8">
+    <p @click="router().push({ name: 'ConfigDiet' })">⬅️</p>
+
     <typography-variant variant="h2"> Cálculo de calorías </typography-variant>
 
     <section class="space-y-6">

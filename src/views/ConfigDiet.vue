@@ -42,9 +42,7 @@
     </section>
 
     <section class="space-y-6">
-      <typography-variant variant="h3">
-        ¿Alguna alergia?
-      </typography-variant>
+      <typography-variant variant="h3"> ¿Alguna alergia? </typography-variant>
       <allergies-selector />
     </section>
 
@@ -63,7 +61,7 @@
     </section>
 
     <p class="flex justify-center">
-      <button @click="navigateNextPage" class=" text-4xl">➡️</button>
+      <button @click="navigateNextPage" class="text-4xl">➡️</button>
     </p>
   </div>
 </template>
@@ -77,6 +75,7 @@ import AllergiesSelector from "@/components/ConfigDiet/AllergiesSelector.vue";
 import FoodRestriction from "@/components/ConfigDiet/FoodRestriction.vue";
 import ExcludeIngredient from "@/components/ConfigDiet/ExcludeIngredient.vue";
 import TypographyVariant from "@/components/TypographyVariant.vue";
+import router from "@/router/index.js";
 
 /**
  * Cantidad de saludable (poco, normal, mucho) ✅
@@ -90,16 +89,24 @@ import TypographyVariant from "@/components/TypographyVariant.vue";
  *
  */
 export default {
-  name: 'ConfigDiet',
+  name: "ConfigDiet",
   components: {
     TypographyVariant,
     ExcludeIngredient,
     FoodRestriction,
-    AllergiesSelector, DifficultySelector, MaxTimeSelector, RangePickerHealthy, SelectorComida},
+    AllergiesSelector,
+    DifficultySelector,
+    MaxTimeSelector,
+    RangePickerHealthy,
+    SelectorComida,
+  },
   methods: {
+    router() {
+      return router;
+    },
     navigateNextPage() {
-      this.$router.push({name: 'ConfigMacros'})
-    }
-  }
-}
+      this.$router.push({ name: "ConfigMacros" });
+    },
+  },
+};
 </script>

@@ -1,6 +1,5 @@
 <template>
   <router-view v-slot="{ Component }">
-    <p @click="router().go(-1)">⬅️</p>
     <transition name="slide-fade">
       <component :is="Component" />
     </transition>
@@ -27,14 +26,3 @@
   opacity: 0;
 }
 </style>
-<script>
-import router from "@/router/index.js";
-
-export default {
-  methods: {
-    router() {
-      return router;
-    },
-  },
-};
-</script>
