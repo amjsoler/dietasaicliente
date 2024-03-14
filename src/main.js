@@ -19,6 +19,7 @@ app.use(createPinia());
 useDietStore().$subscribe((mutation, state) => {
   localStorage.setItem("diet", JSON.stringify(state.diet));
   localStorage.setItem("viewingRecipe", JSON.stringify(state.viewingRecipe));
+  localStorage.setItem("wekDiet", JSON.stringify(state.weekDiet));
 });
 
 useConfigDietStore().$subscribe((mutation, state) => {
