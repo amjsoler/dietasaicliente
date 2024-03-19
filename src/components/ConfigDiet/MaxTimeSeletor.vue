@@ -1,34 +1,44 @@
 <template>
-  <input id="small-range" v-model="actualTime" @input="updateMaxTime" type="range" min="5" step="5" max="120"
-  class="w-full">
+  <div class="flex justify-center">
+    <input
+      id="small-range"
+      v-model="actualTime"
+      @input="updateMaxTime"
+      type="range"
+      min="5"
+      step="5"
+      max="120"
+      class="w-full md:w-3/4 md:mx-auto"
+    />
+  </div>
 
-  <p>
-    Máximo por receta: {{actualTime}} minutos
-  </p>
+  <p>Máximo por receta: {{ actualTime }} minutos</p>
 </template>
 
 <script>
-import {useConfigDietStore} from "@/storage/configDiet.js";
+import { useConfigDietStore } from "@/storage/configDiet.js";
 
 export default {
-  name: 'MaxTimeSelector',
+  name: "MaxTimeSelector",
 
   data() {
     return {
-      actualTime: useConfigDietStore().getMaxTime() ? useConfigDietStore().getMaxTime() : 30
-    }
+      actualTime: useConfigDietStore().getMaxTime()
+        ? useConfigDietStore().getMaxTime()
+        : 30,
+    };
   },
 
   methods: {
     updateMaxTime() {
-      useConfigDietStore().setMaxTime(this.actualTime)
-    }
-  }
-}
+      useConfigDietStore().setMaxTime(this.actualTime);
+    },
+  },
+};
 </script>
 
 <style scoped>
-  /*********** Baseline, reset styles ***********/
+/*********** Baseline, reset styles ***********/
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
@@ -56,7 +66,7 @@ input[type="range"]::-webkit-slider-thumb {
   height: 32px;
   width: 32px;
   margin-top: -12px; /* Centers thumb on the track */
-  background: #FFF url('/icons/clock.png') no-repeat center center;
+  background: #fceade url("/icons/clock.png") no-repeat center center;
   background-size: contain;
 }
 
@@ -84,7 +94,7 @@ input[type="range"]::-moz-range-thumb {
   margin-top: -12px; /* Centers thumb on the track */
 }
 
-input[type="range"]:focus::-moz-range-thumb{
+input[type="range"]:focus::-moz-range-thumb {
   outline: 3px solid #ff7b00;
   outline-offset: 0.125rem;
 }

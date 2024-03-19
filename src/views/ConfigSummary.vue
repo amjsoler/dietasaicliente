@@ -1,6 +1,11 @@
 <template>
   <section class="space-y-6">
-    <p @click="router().push({ name: 'ConfigMacros' })">⬅️</p>
+    <p
+      class="text-4xl cursor-pointer"
+      @click="router().push({ name: 'ConfigMacros' })"
+    >
+      ⬅️
+    </p>
 
     <div class="space-y-6">
       <typography-variant variant="h2"> Resumen </typography-variant>
@@ -231,7 +236,7 @@ export default {
 
     generateDiet() {
       axios
-        .post("http://localhost:8000/api/get-diet", {
+        .post(import.meta.env.VITE_SERVICE_BASE_URL + "get-diet", {
           meals_included: useConfigDietStore().MealsIncluded,
           healthyness: useConfigDietStore().getHealthyness(),
           difficulty: useConfigDietStore().getDifficulty(),

@@ -11,7 +11,7 @@
       <typography-variant variant="h3">
         ¿Cuantas comidas quieres hacer al día?
       </typography-variant>
-      <div class="flex flex-col gap-y-2">
+      <div class="flex flex-col md:flex-row flex-wrap gap-x-4 gap-y-2">
         <selector-comida literal="desayuno">Desayuno</selector-comida>
         <selector-comida literal="almuerzo">Almuerzo</selector-comida>
         <selector-comida literal="comida">Comida</selector-comida>
@@ -22,7 +22,7 @@
 
     <section class="space-y-6">
       <typography-variant variant="h3">
-        Recetas saludables?
+        ¿Recetas saludables?
       </typography-variant>
       <range-picker-healthy />
     </section>
@@ -36,7 +36,7 @@
 
     <section class="space-y-6">
       <typography-variant variant="h3">
-        ¿Restringimos la dificultad de las recetas?
+        ¿Limitamos la dificultad de las recetas?
       </typography-variant>
       <difficulty-selector />
     </section>
@@ -48,7 +48,7 @@
 
     <section class="space-y-6">
       <typography-variant variant="h3">
-        ¿Tienes alguna restricción alimentaria?
+        ¿Restricciones alimentarias?
       </typography-variant>
       <food-restriction />
     </section>
@@ -77,17 +77,6 @@ import ExcludeIngredient from "@/components/ConfigDiet/ExcludeIngredient.vue";
 import TypographyVariant from "@/components/TypographyVariant.vue";
 import router from "@/router/index.js";
 
-/**
- * Cantidad de saludable (poco, normal, mucho) ✅
- * Excluír algún alimento ✅
- * Eres fan de algún alimento ❌
- * Restricciones alimentarias (Vegetariano, vegano, dieta receta sin gluten, sin lácteos) ✅
- * Alergias (cacahuete, frutos secos, mariscos, pescados, leche, huevo, trigo, soja) ✅
- * Dificultad (fácil, medio, difícil) ✅
- * Frecuencia de comida (desayuno, almuerzo, comida, merienda, cena) ✅
- * Tiempo de preparación máximo (en mins.) ✅
- *
- */
 export default {
   name: "ConfigDiet",
   components: {

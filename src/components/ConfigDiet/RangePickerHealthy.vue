@@ -1,28 +1,36 @@
 <template>
   <div class="relative flex justify-center">
-    <input type="range" min="0" max="2" :data-value="healthyness" @input="updateHealthyness" :value="healthyness" class="w-[100%] h-4 cursor-pointer">
+    <input
+      type="range"
+      min="0"
+      max="2"
+      :data-value="healthyness"
+      @input="updateHealthyness"
+      :value="healthyness"
+      class="w-full md:w-3/4 h-4 cursor-pointer"
+    />
   </div>
 </template>
 
 <script>
-import {useConfigDietStore} from "@/storage/configDiet.js";
+import { useConfigDietStore } from "@/storage/configDiet.js";
 
 export default {
-  name: 'RangePickerHealthy',
+  name: "RangePickerHealthy",
 
   data() {
     return {
-      healthyness: useConfigDietStore().getHealthyness()
-    }
+      healthyness: useConfigDietStore().getHealthyness(),
+    };
   },
 
   methods: {
     updateHealthyness(event) {
       this.healthyness = event.target.value;
       useConfigDietStore().setHealthyness(this.healthyness);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -32,7 +40,6 @@ input[type="range"] {
   appearance: none;
   background: transparent;
   cursor: pointer;
-  width: 25rem;
 }
 
 /* Removes default focus */
@@ -58,17 +65,17 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 input[data-value="0"]::-webkit-slider-thumb {
-  background: #FFF url('/icons/hamburguesa.png') no-repeat center center;
+  background: #fceade url("/icons/hamburguesa.png") no-repeat center center;
   background-size: contain;
 }
 
 input[data-value="1"]::-webkit-slider-thumb {
-  background: #FFF url('/icons/balanza.png') no-repeat center;
+  background: #fceade url("/icons/balanza.png") no-repeat center;
   background-size: contain;
 }
 
 input[data-value="2"]::-webkit-slider-thumb {
-  background: #FFF url('/icons/corazon.png') no-repeat center;
+  background: #fceade url("/icons/corazon.png") no-repeat center;
   background-size: contain;
 }
 
@@ -96,7 +103,7 @@ input[type="range"]::-moz-range-thumb {
   margin-top: -12px; /* Centers thumb on the track */
 }
 
-input[type="range"]:focus::-moz-range-thumb{
+input[type="range"]:focus::-moz-range-thumb {
   outline: 3px solid #ff7b00;
   outline-offset: 0.125rem;
 }

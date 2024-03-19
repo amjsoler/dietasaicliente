@@ -3,7 +3,11 @@
     <typography-variant variant="p">
       Ingredientes excluidos
     </typography-variant>
-    <ul class="flex flex-row flex-wrap gap-x-4 gap-y-2">
+    <transition-group
+      class="flex flex-row flex-wrap gap-x-4 gap-y-2"
+      tag="ul"
+      name="list"
+    >
       <li
         class="cursor-pointer border-2 border-primary-100 px-4 py-2 rounded-lg"
         @click="removeSelectIngredient(ingredient)"
@@ -15,13 +19,14 @@
         }}
         <span class="text-xs ms-2">❌</span>
       </li>
-    </ul>
+    </transition-group>
   </section>
   <p v-else>No hay ingredientes excluidos</p>
 
   <input
     type="text"
     v-model="search"
+    id="input-search-ingredient"
     class="w-3/4 inset-0 block mx-auto border-2 border-primary-100 rounded-lg"
     placeholder="Busca un ingrediente"
   />
@@ -33,7 +38,7 @@
       name="list"
     >
       <li
-        class="hidden has-[span]:block"
+        class="hidden has-[span]:block cursor-pointer"
         @click="selectIngredient(option.name)"
         v-for="option in availableIngredients"
         :key="option.name"
@@ -91,15 +96,19 @@ export default {
     };
   },
   mounted() {
-    axios.get("http://localhost:8000/api/ingredients").then((response) => {
-      this.availableIngredients = response.data;
-    });
+    axios
+      .get("http://localhost:8000/api/ingredients")
+      .then((response) => {
+        this.availableIngredients = response.data;
+      })
+      .catch(() => {});
   },
 
   methods: {
     selectIngredient(ingredientCode) {
       useConfigDietStore().addIngredientExcluded(ingredientCode);
       this.search = "";
+      document.getElementById("input-search-ingredient").focus();
     },
 
     removeSelectIngredient(ingredientCode) {

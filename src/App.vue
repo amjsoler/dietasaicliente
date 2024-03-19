@@ -36,8 +36,10 @@ export default {
 
   mounted() {
     //Cuando entramos a la app, comprobamos si hay cambio de semana para eliminar la dieta de la semana anterior
-    if (useDietStore().weekDiet !== moment(new Date()).week()) {
-      console.log("Borrando mierda");
+    if (
+      useDietStore().weekDiet &&
+      useDietStore().weekDiet !== moment(new Date()).week()
+    ) {
       localStorage.removeItem("diet");
       useDietStore().$reset();
       this.$router.push({ name: "ConfigDiet" });

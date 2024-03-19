@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import ConfigDiet from "@/views/ConfigDiet.vue";
 import ConfigMacros from "@/views/ConfigMacros.vue";
 import ConfigSummary from "@/views/ConfigSummary.vue";
-import DameInserts from "@/views/DameInserts.vue";
 import MyGeneratedDiet from "@/views/MyGeneratedDiet.vue";
 import ViewRecipe from "@/views/ViewRecipe.vue";
 import { useDietStore } from "@/storage/diet.js";
@@ -56,11 +55,6 @@ const router = createRouter({
       meta: {
         requiresDiet: true,
       },
-    },
-    {
-      path: "/dame-inserts",
-      name: "DameInserts",
-      component: DameInserts,
     },
   ],
 });

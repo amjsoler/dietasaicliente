@@ -1,34 +1,40 @@
 <template>
-  <div class="relative">
-    <input id="default-range" v-model="width" @input="changeWidth" type="range" min="20" max="120" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
-    <span class="text-sm absolute right-0 -top-12">
-    {{ width }}Kg
-  </span>
+  <div class="relative flex justify-center">
+    <input
+      id="default-range"
+      v-model="width"
+      @input="changeWidth"
+      type="range"
+      min="20"
+      max="120"
+      class="w-full md:w-3/4 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+    />
+    <span class="text-sm absolute right-0 -top-12"> {{ width }}Kg </span>
   </div>
 </template>
 
 <script>
-import {useConfigDietStore} from "@/storage/configDiet.js";
+import { useConfigDietStore } from "@/storage/configDiet.js";
 
 export default {
-  name: 'WeightSelector',
+  name: "WeightSelector",
 
   data() {
     return {
-      width: useConfigDietStore().getWidth()
-    }
+      width: useConfigDietStore().getWidth(),
+    };
   },
 
-  methods:{
+  methods: {
     changeWidth() {
-      useConfigDietStore().setWidth(this.width)
-    }
-  }
-}
+      useConfigDietStore().setWidth(this.width);
+    },
+  },
+};
 </script>
 
 <style scoped>
-input[type=range]::-webkit-slider-thumb {
+input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 20px;
