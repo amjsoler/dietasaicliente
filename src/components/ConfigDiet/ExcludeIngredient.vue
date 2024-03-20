@@ -97,7 +97,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:8000/api/ingredients")
+      .get(import.meta.env.VITE_SERVICE_BASE_URL + "ingredients")
       .then((response) => {
         this.availableIngredients = response.data;
       })
