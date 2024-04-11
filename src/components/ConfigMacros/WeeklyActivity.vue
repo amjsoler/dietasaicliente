@@ -1,9 +1,9 @@
 <template>
   <section class="w-full md:w-3/4 mx-auto">
-    <select @change="changeSelect" v-model="selectedWeeklyActivity">
+    <select v-model="configDietStore.weeklyActivity.selected">
       <option
         class="border-2 border-primary-400 rounded-lg"
-        v-for="activity in weeklyActivityLiterals"
+        v-for="activity in configDietStore.weeklyActivity.availableActivities"
         :key="activity.name"
         :value="activity.multiplier"
       >
@@ -13,32 +13,10 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import { useConfigDietStore } from "@/storage/configDiet.js";
 
-export default {
-  name: "WeeklyActivity",
-
-  data() {
-    return {
-      weeklyActivityLiterals: [
-        { name: "Sedentario", multiplier: 1.2 },
-        { name: "Levemente Activo", multiplier: 1.375 },
-        { name: "Moderadamente activo", multiplier: 1.55 },
-        { name: "Muy Activo", multiplier: 1.725 },
-        { name: "Extremadamente activo", multiplier: 1.9 },
-      ],
-
-      selectedWeeklyActivity: useConfigDietStore().getWeeklyActivity(),
-    };
-  },
-
-  methods: {
-    changeSelect() {
-      useConfigDietStore().setWeeklyActivity(this.selectedWeeklyActivity);
-    },
-  },
-};
+const configDietStore = useConfigDietStore()
 </script>
 
 <style scoped>

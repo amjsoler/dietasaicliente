@@ -4,30 +4,16 @@
       type="range"
       min="50"
       max="220"
-      v-model="height"
-      @input="changeHeight"
+      v-model="configDietStore.height"
       class="w-full md:w-3/4 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
     />
-    <span class="text-sm absolute right-0 -top-12"> {{ height }}cm </span>
+    <span class="text-sm absolute right-0 -top-12"> {{ configDietStore.height }}cm </span>
   </div>
 </template>
-<script>
+<script setup>
 import { useConfigDietStore } from "@/storage/configDiet.js";
 
-export default {
-  name: "HeighSelector",
-  data() {
-    return {
-      height: useConfigDietStore().getHeight(),
-    };
-  },
-
-  methods: {
-    changeHeight() {
-      useConfigDietStore().setHeight(this.height);
-    },
-  },
-};
+const configDietStore = useConfigDietStore()
 </script>
 
 <style scoped>

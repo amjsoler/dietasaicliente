@@ -34,8 +34,24 @@ export const useConfigDietStore = defineStore("configDiet", {
     height: 130,
     width: 50,
     age: 20,
-    weeklyActivity: 1.55,
-    dietObjective: 0,
+    weeklyActivity: {
+      selected: 1.55,
+      availableActivities: [
+        { name: "Sedentario", multiplier: 1.2 },
+        { name: "Levemente Activo", multiplier: 1.375 },
+        { name: "Moderadamente activo", multiplier: 1.55 },
+        { name: "Muy Activo", multiplier: 1.725 },
+        { name: "Extremadamente activo", multiplier: 1.9 },
+      ]
+    },
+    dietObjective: {
+      selected: 0,
+      availableOptions: [
+        { name: "Bajar de peso", value: -350 },
+        { name: "Mantenerse", value: 0 },
+        { name: "Subir de peso", value: 350 },
+      ]
+    },
     kcal: 0,
 }),
   getters: {
@@ -77,24 +93,12 @@ export const useConfigDietStore = defineStore("configDiet", {
       return this.age;
     },
 
-    setAge(age) {
-      this.age = age;
-    },
-
     getWidth() {
       return this.width;
     },
 
-    setWidth(width) {
-      this.width = width;
-    },
-
     getHeight() {
       return this.height;
-    },
-
-    setHeight(height) {
-      this.height = height;
     },
 
     getGender() {

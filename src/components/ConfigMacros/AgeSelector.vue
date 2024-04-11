@@ -4,32 +4,17 @@
       type="range"
       min="1"
       max="100"
-      v-model="ageLocal"
-      @input="updateAge"
+      v-model="configDietStore.age"
       class="w-full md:w-3/4 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
     />
-    <span class="text-sm absolute right-0 -top-12">{{ ageLocal }} años</span>
+    <span class="text-sm absolute right-0 -top-12">{{ configDietStore.age }} años</span>
   </div>
 </template>
 
-<script>
+<script setup>
 import { useConfigDietStore } from "@/storage/configDiet.js";
 
-export default {
-  name: "AgeSelector",
-
-  data() {
-    return {
-      ageLocal: useConfigDietStore().getAge(),
-    };
-  },
-
-  methods: {
-    updateAge() {
-      useConfigDietStore().setAge(this.ageLocal);
-    },
-  },
-};
+const configDietStore = useConfigDietStore()
 </script>
 
 <style scoped>

@@ -1,9 +1,9 @@
 <template>
   <section class="w-full md:w-3/4 mx-auto">
-    <select @change="changeSelect" v-model="selectedDietObjective">
+    <select v-model="configDietStore.dietObjective.selected">
       <option
         class="border-2 border-primary-400 rounded-lg"
-        v-for="objective in dietObjectivesLiterals"
+        v-for="objective in configDietStore.dietObjective.availableOptions"
         :key="objective.value"
         :value="objective.value"
       >
@@ -13,30 +13,10 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import { useConfigDietStore } from "@/storage/configDiet.js";
 
-export default {
-  name: "DietObjective",
-
-  data() {
-    return {
-      dietObjectivesLiterals: [
-        { name: "Bajar de peso", value: -350 },
-        { name: "Mantenerse", value: 0 },
-        { name: "Subir de peso", value: 350 },
-      ],
-
-      selectedDietObjective: useConfigDietStore().getDietObjective(),
-    };
-  },
-
-  methods: {
-    changeSelect() {
-      useConfigDietStore().setDietObjective(this.selectedDietObjective);
-    },
-  },
-};
+const configDietStore = useConfigDietStore()
 </script>
 
 <style scoped>

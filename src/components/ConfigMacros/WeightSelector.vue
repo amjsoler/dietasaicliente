@@ -2,35 +2,22 @@
   <div class="relative flex justify-center">
     <input
       id="default-range"
-      v-model="width"
-      @input="changeWidth"
+      v-model="configDietStore.width"
       type="range"
       min="20"
       max="120"
       class="w-full md:w-3/4 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
     />
-    <span class="text-sm absolute right-0 -top-12"> {{ width }}Kg </span>
+    <span class="text-sm absolute right-0 -top-12"> {{ configDietStore.width }}Kg </span>
   </div>
 </template>
 
-<script>
+<script setup>
 import { useConfigDietStore } from "@/storage/configDiet.js";
 
-export default {
-  name: "WeightSelector",
+const configDietStore = useConfigDietStore()
 
-  data() {
-    return {
-      width: useConfigDietStore().getWidth(),
-    };
-  },
 
-  methods: {
-    changeWidth() {
-      useConfigDietStore().setWidth(this.width);
-    },
-  },
-};
 </script>
 
 <style scoped>
