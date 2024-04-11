@@ -1,6 +1,6 @@
 import "./assets/main.css";
 
-import { createApp } from "vue";
+import {createApp, watch} from "vue";
 import { createPinia } from "pinia";
 
 import App from "./App.vue";
@@ -8,23 +8,24 @@ import router from "./router";
 
 import "@fontsource-variable/plus-jakarta-sans";
 
-import { useDietStore } from "@/storage/diet.js";
-import { useConfigDietStore } from "@/storage/configDiet.js"; // Specify weight and style
-
 const app = createApp(App);
 
-app.use(createPinia());
+const pinia = createPinia()
+app.use(pinia);
 
-//Si crece, esto lo abstraemos a un archivo con una función export
-useDietStore().$subscribe((mutation, state) => {
-  localStorage.setItem("diet", JSON.stringify(state.diet));
-  localStorage.setItem("viewingRecipe", JSON.stringify(state.viewingRecipe));
-  localStorage.setItem("wekDiet", JSON.stringify(state.weekDiet));
-});
+//Restauro el estado de la aplicación en caso de que lo haya en localstorage
+if(localStorage.getItem('piniaState')) {
+    pinia.state.value = JSON.parse(localStorage.getItem('piniaState'))
+}
 
-useConfigDietStore().$subscribe((mutation, state) => {
-  localStorage.setItem("configDiet", JSON.stringify(state));
-});
+watch(
+    pinia.state,
+    (state) => {
+      // persist the whole state to the local storage whenever it changes
+      localStorage.setItem('piniaState', JSON.stringify(state))
+    },
+    { deep: true }
+)
 
 app.use(router);
 app.mount("#app");

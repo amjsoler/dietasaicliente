@@ -4,33 +4,18 @@
       type="range"
       min="0"
       max="2"
-      :data-value="healthyness"
-      @input="updateHealthyness"
-      :value="healthyness"
+      :data-value="configDietStore.Healthyness"
+      @input="event => configDietStore.Healthyness = event.target.value"
+      :value="configDietStore.Healthyness"
       class="w-full md:w-3/4 h-4 cursor-pointer"
     />
   </div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import { useConfigDietStore } from "@/storage/configDiet.js";
 
-export default {
-  name: "RangePickerHealthy",
-
-  data() {
-    return {
-      healthyness: useConfigDietStore().getHealthyness(),
-    };
-  },
-
-  methods: {
-    updateHealthyness(event) {
-      this.healthyness = event.target.value;
-      useConfigDietStore().setHealthyness(this.healthyness);
-    },
-  },
-};
+const configDietStore = useConfigDietStore()
 </script>
 
 <style scoped>

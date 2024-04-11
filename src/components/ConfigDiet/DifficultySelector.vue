@@ -4,45 +4,27 @@
       <input
         id="labels-range-input"
         type="range"
-        :data-value="difficulty"
-        @input="setDifficulty"
-        v-model="difficulty"
+        :data-value="configDietStore.Difficulty"
+        v-model="configDietStore.Difficulty"
         min="0"
         max="2"
         class="w-full md:w-3/4 h-2 appearance-none cursor-pointer dark:bg-gray-700"
       />
     </div>
     <typography-variant variant="p">
-      <span v-if="difficulty == 0"> Recetas fáciles </span>
+      <span v-if="configDietStore.Difficulty == 0"> Recetas fáciles </span>
 
-      <span v-else-if="difficulty == 1"> Recetas normales </span>
+      <span v-else-if="configDietStore.Difficulty == 1"> Recetas normales </span>
 
       <span v-else> Recetas gourmet </span>
     </typography-variant>
   </div>
 </template>
-<script>
+<script lang="ts" setup>
 import { useConfigDietStore } from "@/storage/configDiet.js";
 import TypographyVariant from "@/components/TypographyVariant.vue";
 
-export default {
-  name: "DifficultySelector",
-  components: { TypographyVariant },
-
-  data() {
-    return {
-      difficulty: useConfigDietStore().getDifficulty()
-        ? useConfigDietStore().getDifficulty()
-        : 1,
-    };
-  },
-
-  methods: {
-    setDifficulty() {
-      useConfigDietStore().setDifficulty(this.difficulty);
-    },
-  },
-};
+const configDietStore = useConfigDietStore()
 </script>
 
 <style scoped>

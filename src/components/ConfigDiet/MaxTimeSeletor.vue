@@ -2,8 +2,7 @@
   <div class="flex justify-center">
     <input
       id="small-range"
-      v-model="actualTime"
-      @input="updateMaxTime"
+      v-model="configDietStore.MaxTime"
       type="range"
       min="5"
       step="5"
@@ -12,29 +11,13 @@
     />
   </div>
 
-  <p>Máximo por receta: {{ actualTime }} minutos</p>
+  <p>Máximo por receta: {{ configDietStore.MaxTime }} minutos</p>
 </template>
 
-<script>
+<script lang="ts" setup>
 import { useConfigDietStore } from "@/storage/configDiet.js";
 
-export default {
-  name: "MaxTimeSelector",
-
-  data() {
-    return {
-      actualTime: useConfigDietStore().getMaxTime()
-        ? useConfigDietStore().getMaxTime()
-        : 30,
-    };
-  },
-
-  methods: {
-    updateMaxTime() {
-      useConfigDietStore().setMaxTime(this.actualTime);
-    },
-  },
-};
+const configDietStore = useConfigDietStore()
 </script>
 
 <style scoped>

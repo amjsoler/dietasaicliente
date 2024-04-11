@@ -1,5 +1,5 @@
 <template>
-  <section v-if="selectedIngredients.length" class="space-y-2">
+  <section v-if="configDietStore.IngredientsExcluded.length" class="space-y-2">
     <typography-variant variant="p">
       Ingredientes excluidos
     </typography-variant>
@@ -11,7 +11,7 @@
       <li
         class="cursor-pointer border-2 border-primary-100 px-4 py-2 rounded-lg"
         @click="removeSelectIngredient(ingredient)"
-        v-for="ingredient in selectedIngredients"
+        v-for="ingredient in configDietStore.IngredientsExcluded"
         v-bind:key="ingredient"
       >
         {{
@@ -46,7 +46,7 @@
         <span
           v-if="
             option.name.toLowerCase().includes(search.toLowerCase()) &&
-            !selectedIngredients.includes(option.name)
+            !configDietStore.IngredientsExcluded.includes(option.name)
           "
           class="flex flex-row items-center justify-center border-2 border-primary-100 rounded-lg px-4 py-2"
         >
@@ -77,43 +77,34 @@
 }
 </style>
 
-<script>
+<script setup>
 import { useConfigDietStore } from "@/storage/configDiet.js";
 import TypographyVariant from "@/components/TypographyVariant.vue";
 import axios from "axios";
+import {onBeforeMount} from "vue";
 
-export default {
-  name: "ExcludeIngredient",
-  components: { TypographyVariant },
+  const configDietStore = useConfigDietStore()
+  let availableIngredients = []
+  let search= ""
 
-  data() {
-    return {
-      availableIngredients: [],
+onBeforeMount(() => {
+  axios
+    .get(import.meta.env.VITE_SERVICE_BASE_URL + "ingredients")
+    .then((response) => {
+      availableIngredients = response.data;
+    })
+    .catch(() => {
+      console.log("No se han podido leer los ingredientes disponibles del servidor")
+    });
+})
 
-      selectedIngredients: useConfigDietStore().getIngredientsExcluded(),
+  const selectIngredient = (ingredientCode) => {
+    configDietStore.addIngredientExcluded(ingredientCode);
+    search = "";
+    document.getElementById("input-search-ingredient")?.focus();
+}
 
-      search: "",
-    };
-  },
-  mounted() {
-    axios
-      .get(import.meta.env.VITE_SERVICE_BASE_URL + "ingredients")
-      .then((response) => {
-        this.availableIngredients = response.data;
-      })
-      .catch(() => {});
-  },
-
-  methods: {
-    selectIngredient(ingredientCode) {
-      useConfigDietStore().addIngredientExcluded(ingredientCode);
-      this.search = "";
-      document.getElementById("input-search-ingredient").focus();
-    },
-
-    removeSelectIngredient(ingredientCode) {
-      useConfigDietStore().removeIngredientExcluded(ingredientCode);
-    },
-  },
-};
+  const removeSelectIngredient = (ingredientCode) => {
+    configDietStore.removeIngredientExcluded(ingredientCode);
+}
 </script>

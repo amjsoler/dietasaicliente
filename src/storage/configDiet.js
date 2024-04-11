@@ -2,30 +2,55 @@ import { defineStore } from "pinia";
 
 export const useConfigDietStore = defineStore("configDiet", {
   state: () => ({
-    MealsIncluded: localStorage.getItem("configDiet") ?? [
+
+    MealsIncluded: [
       "desayuno",
       "almuerzo",
       "comida",
       "merienda",
       "cena",
     ],
-    Healthyness: localStorage.getItem("configDiet") ?? 1,
-    MaxTime: localStorage.getItem("configDiet") ?? 30,
-    Difficulty: localStorage.getItem("configDiet") ?? 1,
-    Allergies: localStorage.getItem("configDiet") ?? [],
-    FoodRestrictions: localStorage.getItem("configDiet") ?? [],
-    IngredientsExcluded: localStorage.getItem("configDiet") ?? [],
-    gender: localStorage.getItem("configDiet") ?? "female",
-    height: localStorage.getItem("configDiet") ?? 130,
-    width: localStorage.getItem("configDiet") ?? 50,
-    age: localStorage.getItem("configDiet") ?? 20,
-    weeklyActivity: localStorage.getItem("configDiet") ?? 1.55,
-    dietObjective: localStorage.getItem("configDiet") ?? 0,
-    kcal: localStorage.getItem("configDiet") ?? 0,
-  }),
+    Healthyness: 1,
+    MaxTime: 30,
+    Difficulty: 1,
+    Allergies:  [
+      {name: '🥜', literal:'Cacahuete', code: 'cacahuete', selected: false},
+      {name: '🌰', literal: 'Frutos secos', code: 'frutossecos', selected: false},
+      {name: '🦀', literal: 'Mariscos', code: 'mariscos', selected: false},
+      { name: '🐟', literal: 'Pescados', code: 'pescados', selected: false },
+      { name: '🥛', literal: 'Leche', code: 'leche', selected: false },
+      { name: '🥚', literal: 'Huevo', code: 'huevos', selected: false },
+      { name: '🌾', literal: 'Trigo', code: 'trigo', selected: false },
+      { name: '🫛', literal: 'Soja', code: 'soja', selected: false }
+    ],
+    FoodRestrictions: [
+      { name: 'Vegetarianas', code: "vegetariana", selected:false },
+      { name: 'Veganas', code: "vegana", selected:false },
+      { name: 'Sin gluten', code: "gluten", selected:false },
+      { name: 'Sin lácteos', code: "lacteos", selected:false }
+    ],
+    IngredientsExcluded: [],
+    gender: "female",
+    height: 130,
+    width: 50,
+    age: 20,
+    weeklyActivity: 1.55,
+    dietObjective: 0,
+    kcal: 0,
+}),
+  getters: {
+    checkIfMealIsIncluded: (state) => {
+      return (meal) => state.MealsIncluded.some((auxMeal) => auxMeal === meal)
+    },
+  },
+
   actions: {
-    restart() {
-      useConfigDietStore().$state = null;
+    toggleMeal(meal) {
+        if (this.MealsIncluded.includes(meal)) {
+            this.removeMeal(meal);
+        } else {
+            this.addMeal(meal);
+        }
     },
 
     getDietObjective() {
@@ -133,24 +158,13 @@ export const useConfigDietStore = defineStore("configDiet", {
       return this.Healthyness;
     },
 
-    setHealthyness(healthyness) {
-      this.Healthyness = healthyness;
-    },
 
     getMaxTime() {
       return this.MaxTime;
     },
 
-    setMaxTime(maxTime) {
-      this.MaxTime = maxTime;
-    },
-
     getDifficulty() {
       return this.Difficulty;
-    },
-
-    setDifficulty(difficulty) {
-      this.Difficulty = difficulty;
     },
   },
 });

@@ -18,15 +18,12 @@
   </section>
 </template>
 
-<script>
-export default {
-  name: "TypographyVariant",
+<script lang="ts" setup>
 
-  props: {
-    variant: {
-      type: String,
-      required: true,
-    },
+defineProps({
+  variant: {
+    type: String,
+    required: true,
   },
-};
+})
 </script>

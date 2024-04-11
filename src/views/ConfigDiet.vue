@@ -19,7 +19,6 @@
         <selector-comida literal="cena">Cena</selector-comida>
       </div>
     </section>
-
     <section class="space-y-6">
       <typography-variant variant="h3">
         ¿Recetas saludables?
@@ -68,25 +67,25 @@
 
 <script>
 import SelectorComida from "@/components/ConfigDiet/SelectorComida.vue";
+import TypographyVariant from "@/components/TypographyVariant.vue";
+import router from "@/router/index.js";
 import RangePickerHealthy from "@/components/ConfigDiet/RangePickerHealthy.vue";
 import MaxTimeSelector from "@/components/ConfigDiet/MaxTimeSeletor.vue";
 import DifficultySelector from "@/components/ConfigDiet/DifficultySelector.vue";
 import AllergiesSelector from "@/components/ConfigDiet/AllergiesSelector.vue";
 import FoodRestriction from "@/components/ConfigDiet/FoodRestriction.vue";
 import ExcludeIngredient from "@/components/ConfigDiet/ExcludeIngredient.vue";
-import TypographyVariant from "@/components/TypographyVariant.vue";
-import router from "@/router/index.js";
 
 export default {
   name: "ConfigDiet",
   components: {
-    TypographyVariant,
     ExcludeIngredient,
     FoodRestriction,
     AllergiesSelector,
     DifficultySelector,
     MaxTimeSelector,
     RangePickerHealthy,
+    TypographyVariant,
     SelectorComida,
   },
   methods: {
