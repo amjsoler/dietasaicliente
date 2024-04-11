@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { useConfigDietStore } from "@/storage/configDiet.js";
 import CustomCheck from "@/components/CustomCheck.vue";
-import { defineProps } from "vue";
+
 const props = defineProps({
   literal: {
     type: String,
