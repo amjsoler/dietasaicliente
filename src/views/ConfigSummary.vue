@@ -2,7 +2,7 @@
   <section class="space-y-6">
     <p
       class="text-4xl cursor-pointer"
-      @click="router().push({ name: 'ConfigMacros' })"
+      @click="router.push({ name: 'ConfigMacros' })"
     >
       ⬅️
     </p>
@@ -18,12 +18,12 @@
           <section class="flex flex-row gap-x-2 flex-wrap">
             <span
               class="capitalize"
-              v-for="(meal, index) in useConfigDietStore().MealsIncluded"
+              v-for="(meal, index) in configDietStore.MealsIncluded"
               :key="meal"
             >
               {{ meal }}
               <span
-                v-if="index !== useConfigDietStore().MealsIncluded.length - 1"
+                v-if="index !== configDietStore.MealsIncluded.length - 1"
               >
                 ,
               </span>
@@ -37,30 +37,31 @@
               "Todo tipo de recetas 🍔 ⚖️ 💚",
               "Recetas equillibradas ⚖️ 💚",
               "Recetas saludables 💚",
-            ].at(useConfigDietStore().getHealthyness())
+            ].at(configDietStore.Healthyness)
           }}
         </typography-variant>
 
         <typography-variant variant="p">
           Máximo
           <span class="font-semibold"
-            >🕢 {{ useConfigDietStore().getMaxTime() }} mins/por receta</span
+            >🕢 {{ configDietStore.MaxTime }} mins/por receta</span
           >
         </typography-variant>
 
         <typography-variant variant="p">
           <span class="font-semibold">Alergias: </span>
-          <span v-if="useConfigDietStore().getAllergies().length === 0"
+          <span v-if="configDietStore.Allergies.filter(item => item.selected).length === 0"
             >Ninguna</span
           >
           <span
+            v-else
             class="capitalize"
             :key="alergia"
-            v-for="(alergia, index) in useConfigDietStore().getAllergies()"
+            v-for="(alergia, index) in configDietStore.Allergies.filter(item => item.selected)"
           >
-            {{ alergia }}
+            {{alergia.literal}} {{ alergia.name }}
             <span
-              v-if="index !== useConfigDietStore().getAllergies().length - 1"
+              v-if="index !== configDietStore.Allergies.filter(item => item.selected).length - 1"
               >,
             </span>
           </span>
@@ -68,19 +69,20 @@
 
         <typography-variant variant="p">
           <span class="font-semibold">Restricciones alimentarias: </span>
-          <span v-if="useConfigDietStore().getFoodRestrictions().length === 0"
+          <span v-if="configDietStore.FoodRestrictions.filter(item => item.selected).length === 0"
             >Ninguna</span
           >
           <span
+              v-else
             class="capitalize"
             :key="restriccion"
             v-for="(
               restriccion, index
-            ) in useConfigDietStore().getFoodRestrictions()"
+            ) in configDietStore.FoodRestrictions.filter(item => item.selected)"
           >
-            {{ restriccion }}
+            {{ restriccion.name }}
             <span
-              v-if="index !== useConfigDietStore().getAllergies().length - 1"
+              v-if="index !== configDietStore.FoodRestrictions.filter(item => item.selected).length - 1"
               >,
             </span>
           </span>
@@ -89,21 +91,22 @@
         <typography-variant variant="p">
           <span class="font-semibold">Ingredientes excluídos: </span>
           <span
-            v-if="useConfigDietStore().getIngredientsExcluded().length === 0"
+            v-if="configDietStore.IngredientsExcluded.length === 0"
             >Ninguno</span
           >
           <span
+              v-else
             class="capitalize"
             :key="ingrediente"
             v-for="(
               ingrediente, index
-            ) in useConfigDietStore().getIngredientsExcluded()"
+            ) in configDietStore.IngredientsExcluded"
           >
             {{ ingrediente }}
             <span
               v-if="
                 index !==
-                useConfigDietStore().getIngredientsExcluded().length - 1
+                configDietStore.IngredientsExcluded.length - 1
               "
               >,
             </span>
@@ -118,19 +121,19 @@
 
         <section class="flex flex-row items-center gap-x-2 justify-center">
           <typography-variant class="text-2xl" variant="p">
-            {{ { male: "♂", female: "♀" }[useConfigDietStore().getGender()] }}
+            {{ { male: "♂", female: "♀" }[configDietStore.gender] }}
           </typography-variant>
           |
           <typography-variant variant="p">
-            {{ useConfigDietStore().getAge() }} años
+            {{ configDietStore.age }} años
           </typography-variant>
           |
           <typography-variant variant="p">
-            {{ useConfigDietStore().getWidth() }} kg.
+            {{ configDietStore.width }} kg.
           </typography-variant>
           |
           <typography-variant variant="p">
-            {{ useConfigDietStore().getHeight() }} cm.
+            {{ configDietStore.height }} cm.
           </typography-variant>
         </section>
 
@@ -148,7 +151,7 @@
               ].find(
                 (activity) =>
                   activity.multiplier ===
-                  useConfigDietStore().getWeeklyActivity(),
+                    configDietStore.weeklyActivity.selected,
               ).name
             }}
           </typography-variant>
@@ -161,7 +164,7 @@
                 { name: "Subir de peso", value: 350 },
               ].find(
                 (objective) =>
-                  objective.value === useConfigDietStore().getDietObjective(),
+                  objective.value === configDietStore.dietObjective.selected,
               ).name
             }}
           </typography-variant>
@@ -174,7 +177,7 @@
 
       <section class="flex flex-row justify-center items-center gap-x-4">
         <span class="text-3xl font-bold">
-          {{ useConfigDietStore().kcal }} kcal
+          {{ configDietStore.kcal }} kcal
         </span>
       </section>
     </section>
@@ -205,57 +208,43 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import TypographyVariant from "@/components/TypographyVariant.vue";
 import { useConfigDietStore } from "../storage/configDiet.js";
 import axios from "axios";
 import { useDietStore } from "@/storage/diet.js";
 import router from "@/router/index.js";
 import moment from "moment";
+import {ref} from "vue";
 
-export default {
-  name: "ConfigSummary",
-  components: { TypographyVariant },
-
-  data() {
-    return {
-      errorRequest: null,
-    };
-  },
-
-  methods: {
-    router() {
-      return router;
-    },
-    useConfigDietStore,
-    restartConfigDiet() {
+    const errorRequest = ref(null)
+    const configDietStore = useConfigDietStore()
+    const restartConfigDiet = () => {
       localStorage.removeItem("configDiet");
-      useConfigDietStore().$reset();
+      configDietStore.$reset()
       this.$router.push({ name: "ConfigDiet" });
-    },
+    }
 
-    generateDiet() {
+    const generateDiet = () => {
       axios
         .post(import.meta.env.VITE_SERVICE_BASE_URL + "get-diet", {
-          meals_included: useConfigDietStore().MealsIncluded,
-          healthyness: useConfigDietStore().getHealthyness(),
-          difficulty: useConfigDietStore().getDifficulty(),
-          kcal: useConfigDietStore().kcal,
-          max_time: useConfigDietStore().getMaxTime(),
-          allergies: useConfigDietStore().getAllergies(),
-          foodRestrictions: useConfigDietStore().getFoodRestrictions(),
-          ingredientsExcluded: useConfigDietStore().getIngredientsExcluded,
+          meals_included: configDietStore.MealsIncluded,
+          healthyness: configDietStore.Healthyness,
+          difficulty: configDietStore.Difficulty,
+          kcal: configDietStore.kcal,
+          max_time: configDietStore.MaxTime,
+          allergies: configDietStore.Allergies.filter(item => item.selected).map((allergy) => allergy.code),
+          foodRestrictions: configDietStore.getFoodRestrictions(),
+          ingredientsExcluded: configDietStore.getIngredientsExcluded,
         })
         .then((response) => {
           useDietStore().setDiet(response.data);
           useDietStore().weekDiet = moment(new Date()).week();
 
-          this.$router.push({ name: "GeneratedDiet" });
+          router.push({ name: "GeneratedDiet" });
         })
         .catch(() => {
-          this.errorRequest = true;
+          errorRequest.value = true;
         });
-    },
-  },
-};
+    }
 </script>

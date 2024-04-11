@@ -2,7 +2,7 @@
   <div class="space-y-8">
     <p
       class="text-4xl cursor-pointer"
-      @click="router().push({ name: 'ConfigDiet' })"
+      @click="router.push({ name: 'ConfigDiet' })"
     >
       ⬅️
     </p>
