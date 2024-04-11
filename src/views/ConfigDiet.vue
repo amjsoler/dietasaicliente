@@ -60,41 +60,19 @@
     </section>
 
     <p class="flex justify-center">
-      <button @click="navigateNextPage" class="text-4xl">➡️</button>
+      <button @click="router.push({name:'ConfigMacros'})" class="text-4xl">➡️</button>
     </p>
   </div>
 </template>
 
-<script>
+<script setup>
 import SelectorComida from "@/components/ConfigDiet/SelectorComida.vue";
 import TypographyVariant from "@/components/TypographyVariant.vue";
-import router from "@/router/index.js";
 import RangePickerHealthy from "@/components/ConfigDiet/RangePickerHealthy.vue";
 import MaxTimeSelector from "@/components/ConfigDiet/MaxTimeSeletor.vue";
 import DifficultySelector from "@/components/ConfigDiet/DifficultySelector.vue";
 import AllergiesSelector from "@/components/ConfigDiet/AllergiesSelector.vue";
 import FoodRestriction from "@/components/ConfigDiet/FoodRestriction.vue";
 import ExcludeIngredient from "@/components/ConfigDiet/ExcludeIngredient.vue";
-
-export default {
-  name: "ConfigDiet",
-  components: {
-    ExcludeIngredient,
-    FoodRestriction,
-    AllergiesSelector,
-    DifficultySelector,
-    MaxTimeSelector,
-    RangePickerHealthy,
-    TypographyVariant,
-    SelectorComida,
-  },
-  methods: {
-    router() {
-      return router;
-    },
-    navigateNextPage() {
-      this.$router.push({ name: "ConfigMacros" });
-    },
-  },
-};
+import router from "@/router/index.js";
 </script>

@@ -9,13 +9,13 @@
       name="list"
     >
       <li
-        class="cursor-pointer border-2 border-primary-100 px-4 py-2 rounded-lg"
-        @click="removeSelectIngredient(ingredient)"
-        v-for="ingredient in configDietStore.IngredientsExcluded"
-        v-bind:key="ingredient"
+          class="cursor-pointer border-2 border-primary-100 px-4 py-2 rounded-lg"
+          @click="removeSelectIngredient(ingredient)"
+          v-for="ingredient in configDietStore.IngredientsExcluded"
+          v-bind:key="ingredient"
       >
         {{
-          availableIngredients.find((option) => option.name === ingredient).name
+          ingredient
         }}
         <span class="text-xs ms-2">❌</span>
       </li>
@@ -38,20 +38,20 @@
       name="list"
     >
       <li
-        class="hidden has-[span]:block cursor-pointer"
-        @click="selectIngredient(option.name)"
-        v-for="option in availableIngredients"
-        :key="option.name"
+          class="hidden has-[span]:block cursor-pointer"
+          @click="selectIngredient(ingredient.name)"
+          v-for="ingredient in availableIngredients"
+          :key="ingredient.id"
       >
-        <span
+      <span
           v-if="
-            option.name.toLowerCase().includes(search.toLowerCase()) &&
-            !configDietStore.IngredientsExcluded.includes(option.name)
+            ingredient.name.toLowerCase().includes(search.toLowerCase()) &&
+            !configDietStore.checkIfIngredientIsExcluded(ingredient.name.toLowerCase())
           "
           class="flex flex-row items-center justify-center border-2 border-primary-100 rounded-lg px-4 py-2"
-        >
-          {{ option.name }}
-        </span>
+      >
+        {{ ingredient.name }}
+      </span>
       </li>
     </transition-group>
   </section>
@@ -81,26 +81,26 @@
 import { useConfigDietStore } from "@/storage/configDiet.js";
 import TypographyVariant from "@/components/TypographyVariant.vue";
 import axios from "axios";
-import {onBeforeMount} from "vue";
+import {onBeforeMount, ref} from "vue";
 
   const configDietStore = useConfigDietStore()
-  let availableIngredients = []
-  let search= ""
+  const availableIngredients = ref([])
+  const search = ref("")
 
 onBeforeMount(() => {
   axios
     .get(import.meta.env.VITE_SERVICE_BASE_URL + "ingredients")
     .then((response) => {
-      availableIngredients = response.data;
+      availableIngredients.value = response.data;
     })
     .catch(() => {
       console.log("No se han podido leer los ingredientes disponibles del servidor")
     });
 })
 
-  const selectIngredient = (ingredientCode) => {
-    configDietStore.addIngredientExcluded(ingredientCode);
-    search = "";
+  const selectIngredient = (ingredient) => {
+    configDietStore.addIngredientExcluded(ingredient);
+    search.value = "";
     document.getElementById("input-search-ingredient")?.focus();
 }
 

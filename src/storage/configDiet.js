@@ -42,6 +42,10 @@ export const useConfigDietStore = defineStore("configDiet", {
     checkIfMealIsIncluded: (state) => {
       return (meal) => state.MealsIncluded.some((auxMeal) => auxMeal === meal)
     },
+
+    checkIfIngredientIsExcluded: (state) => {
+      return (ingredient) => state.IngredientsExcluded.some((auxIngredient) => auxIngredient.toLowerCase() === ingredient.toLowerCase())
+    }
   },
 
   actions: {
@@ -121,25 +125,6 @@ export const useConfigDietStore = defineStore("configDiet", {
 
     getFoodRestrictions() {
       return this.FoodRestrictions;
-    },
-
-    addFoodRestriction(foodRestriction) {
-      this.FoodRestrictions.push(foodRestriction);
-    },
-
-    removeFoodRestriction(foodRestriction) {
-      this.FoodRestrictions.splice(
-        this.FoodRestrictions.indexOf(foodRestriction),
-        1,
-      );
-    },
-
-    addAllergy(allergy) {
-      this.Allergies.push(allergy);
-    },
-
-    removeAllergy(allergy) {
-      this.Allergies.splice(this.Allergies.indexOf(allergy), 1);
     },
 
     getAllergies() {
