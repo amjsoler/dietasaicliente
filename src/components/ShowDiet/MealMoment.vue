@@ -11,22 +11,19 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import ShowRecipe from "@/components/ShowDiet/ShowRecipe.vue";
 import TypographyVariant from "@/components/TypographyVariant.vue";
 
-export default {
-  name: "MealMoment",
-  components: { TypographyVariant, ShowRecipe },
-  props: {
-    mealMoment: {
-      type: Object,
-      required: true,
-    },
-    mealName: {
-      type: String,
-      required: true,
-    },
+defineProps({
+  mealMoment: {
+    type: Object,
+    required: true,
   },
-};
+
+  mealName: {
+    type: String,
+    required: true,
+  },
+})
 </script>

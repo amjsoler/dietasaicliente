@@ -29,25 +29,22 @@
   </article>
 </template>
 
-<script>
+<script setup>
 import { useDietStore } from "@/storage/diet.js";
 import TypographyVariant from "@/components/TypographyVariant.vue";
+import router from "@/router/index.js";
 
-export default {
-  name: "ShowRecipe",
-  components: { TypographyVariant },
-  props: {
-    recipe: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  recipe: {
+    type: Object,
+    required: true,
   },
+})
 
-  methods: {
-    navigateToViewRecipe() {
-      useDietStore().viewingRecipe = this.recipe;
-      this.$router.push({ name: "ViewRecipe" });
-    },
-  },
-};
+const dietStore = useDietStore()
+
+const navigateToViewRecipe = () => {
+  dietStore.viewingRecipe = props.recipe
+  router.push({ name: "ViewRecipe" })
+}
 </script>

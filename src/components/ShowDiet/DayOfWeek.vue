@@ -3,7 +3,7 @@
     <div class="flex flex-row justify-around items-center px-8">
       <span>
         <span
-          @click="navigateToLeftDayCallback"
+          @click="dietStore.viewingDay--"
           class="text-xl cursor-pointer"
           v-show="day !== 'lunes'"
           >⬅️</span
@@ -14,7 +14,7 @@
       </typography-variant>
       <span>
         <span
-          @click="navigateToRightDayCallback"
+          @click="dietStore.viewingDay++"
           class="text-xl cursor-pointer"
           v-if="day !== 'domingo'"
           >➡️
@@ -30,55 +30,37 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import MealMoment from "@/components/ShowDiet/MealMoment.vue";
 import TypographyVariant from "@/components/TypographyVariant.vue";
 import { useDietStore } from "@/storage/diet.js";
+import { computed, ref } from "vue";
 
-export default {
-  name: "DayOfWeek",
-  components: { TypographyVariant, MealMoment },
-  props: {
-    dailyDiet: {
-      type: Object,
-      required: true,
-    },
 
-    day: {
-      type: String,
-      required: true,
-    },
+defineProps({
+  dailyDiet: {
+    type: Object,
+    required: true,
   },
 
-  data() {
-    return {
-      arrDays: [
-        "lunes",
-        "martes",
-        "miércoles",
-        "jueves",
-        "viernes",
-        "sábado",
-        "domingo",
-      ],
-    };
+  day: {
+    type: String,
+    required: true,
   },
+})
 
-  computed: {
-    viewingActualDay() {
-      return this.arrDays.at(useDietStore().viewingDay);
-    },
-  },
+const dietStore = useDietStore()
+const arrDays = ref([
+  "lunes",
+  "martes",
+  "miércoles",
+  "jueves",
+  "viernes",
+  "sábado",
+  "domingo",
+])
 
-  methods: {
-    useDietStore,
-    navigateToLeftDayCallback() {
-      useDietStore().viewingDay = useDietStore().viewingDay - 1;
-    },
-
-    navigateToRightDayCallback() {
-      useDietStore().viewingDay = useDietStore().viewingDay + 1;
-    },
-  },
-};
+const viewingActualDay = computed(() => {
+  return arrDays.value.at(useDietStore().viewingDay);
+})
 </script>
