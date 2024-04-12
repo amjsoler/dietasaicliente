@@ -8,17 +8,13 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import TypographyVariant from "@/components/TypographyVariant.vue";
 
-export default {
-  name: "PreparationSteps",
-  components: { TypographyVariant },
-  props: {
-    steps: {
-      type: Array,
-      required: true,
-    },
-  },
-};
+defineProps({
+  steps: {
+    type: Array,
+    required: true,
+  }
+})
 </script>

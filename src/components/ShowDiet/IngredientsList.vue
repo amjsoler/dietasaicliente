@@ -9,11 +9,11 @@
       >
         <span class="font-semibold"> {{ `${ingredient.nombre}` }} </span>
         <span>
-          <span v-if="ingredient.unidad === 'al gusto'">
-            {{ `(${ingredient.unidad})` }}
+          <span v-if="ingredient.unidades === 'al gusto'">
+            al gusto
           </span>
           <span v-else>
-            {{ `(${ingredient.cantidad} ${ingredient.unidad})` }}
+            {{ `(${ingredient.cantidad} ${ingredient.unidades})` }}
           </span>
         </span>
       </li>
@@ -21,17 +21,13 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import TypographyVariant from "@/components/TypographyVariant.vue";
 
-export default {
-  name: "IngredientsList",
-  components: { TypographyVariant },
-  props: {
-    ingredients: {
-      type: Array,
-      required: true,
-    },
-  },
-};
+defineProps({
+  ingredients: {
+    type: Array,
+    required: true,
+  }
+})
 </script>

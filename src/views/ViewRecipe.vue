@@ -1,7 +1,7 @@
 <template>
   <section class="space-y-6">
     <typography-variant variant="h2">
-      {{ recipe.name }}
+      {{ dietStore.viewingRecipe.name }}
     </typography-variant>
 
     <ul class="flex flex-row flex-wrap space-y-2 gap-x-4">
@@ -9,62 +9,74 @@
         <div class="flex flex-col">
           <div class="flex flex-row justify-around">
             <span class="font-semibold">
-              {{ `🔥 ${recipe.kcal} kcal ` }}
+              {{ `🔥 ${dietStore.viewingRecipe.kcal} kcal ` }}
             </span>
             <span>
               {{
                 ["🍔 Poco saludable", "⚖️ Equilibrada", "💚 Saludable"].at(
-                  recipe.healthyness,
+                  dietStore.viewingRecipe.healthyness,
                 )
               }}
             </span>
           </div>
-          <span class="text-sm">
+          <div class="flex flex-row justify-center">
+            <span class="text-sm">
             {{
-              `(proteínas: ${recipe.protein} g, hidratos: ${recipe.carbs} g, grasas: ${recipe.fat} g)`
+                `(proteínas: ${dietStore.viewingRecipe.protein} g, hidratos: ${dietStore.viewingRecipe.carbs} g, grasas: ${dietStore.viewingRecipe.fat} g)`
+              }}
+          </span>
+          </div>
+        </div>
+      </li>
+      <li class="flex-grow">
+        <div class="flex flex-row justify-around">
+          <span class="text-lg">🕢 {{ dietStore.viewingRecipe.preparation_time }} mins.</span>
+          <span class="text-lg">
+            {{
+              ["🐣 Receta fácil", "🍳 Dificultad media", "🧑‍🍳 Receta gourmet"].at(
+                dietStore.viewingRecipe.difficulty,
+              )
             }}
           </span>
         </div>
       </li>
-      <li class="text-lg">🕢 {{ recipe.preparation_time }} mins.</li>
-      <li class="text-lg flex-grow">
-        {{
-          ["🐣 Receta fácil", "🍳 Dificultad media", "🧑‍🍳 Receta gourmet"].at(
-            recipe.difficulty,
-          )
-        }}
-      </li>
       <li class="text-lg flex-grow">
         Restricciones alimentarias:
-        <span class="font-semibold">{{ recipe.food_restrictions }}</span>
+        <span v-if="foodRestrictions.length === 0">Ninguna</span>
+        <span v-else v-for="restriction in foodRestrictions"
+              :key="restriction" class="font-semibold"
+        >
+          {{ restriction }}
+          <span v-if="foodRestrictions.indexOf(restriction) !== foodRestrictions.length - 1">, </span>
+        </span>
       </li>
       <li class="text-lg flex-grow">
         Alérgenos:
-        {{ recipe.allergens.length === 0 ? "No tiene" : recipe.allergens }}
+        <span v-if="allergens.length === 0">Ninguno</span>
+        <span v-else v-for="allergen in allergens"
+              :key="allergen"
+        >
+          {{ dietStore.viewingRecipe.allergens.length === 0 ? "No tiene" : dietStore.viewingRecipe.allergens }}
+          <span v-if="allergens.indexOf(allergen) !== allergens.length - 1">, </span>
+        </span>
       </li>
     </ul>
 
-    <ingredients-list :ingredients="recipe.ingredients" />
+    <ingredients-list :ingredients="ingredients" />
 
-    <preparation-steps :steps="recipe.steps" />
+    <preparation-steps :steps="steps" />
   </section>
 </template>
 
-<script>
-import { useDietStore } from "../storage/diet.js";
+<script setup>
 import IngredientsList from "@/components/ShowDiet/IngredientsList.vue";
 import PreparationSteps from "@/components/ShowDiet/PreparationSteps.vue";
 import TypographyVariant from "@/components/TypographyVariant.vue";
+import { useDietStore } from "@/storage/diet.js";
 
-export default {
-  name: "ViewRecipe",
-  components: { TypographyVariant, PreparationSteps, IngredientsList },
-  methods: { useDietStore },
-
-  computed: {
-    recipe() {
-      return this.useDietStore().viewingRecipe;
-    },
-  },
-};
+const dietStore = useDietStore()
+const foodRestrictions = JSON.parse(dietStore.viewingRecipe.food_restrictions)
+const allergens = JSON.parse(dietStore.viewingRecipe.allergens)
+const ingredients = JSON.parse(dietStore.viewingRecipe.ingredients)
+const steps = JSON.parse(dietStore.viewingRecipe.steps)
 </script>
