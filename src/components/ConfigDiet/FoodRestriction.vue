@@ -1,7 +1,7 @@
 <template>
   <ul class="flex flex-row flex-wrap justify-center items-center gap-x-4 gap-y-2">
     <li @click="restriction.selected = !restriction.selected"
-        class=" cursor-pointer w-40 border-2 border-primary-100 flex justify-center items-center h-10 rounded-lg"
+        class=" cursor-pointer w-40 border-2 border-gray-200 flex justify-center items-center h-10 rounded-full"
         v-for="(restriction) in configDietStore.FoodRestrictions"
         :key="restriction.code">
       <custom-check :checked="restriction.selected" />

@@ -1,7 +1,7 @@
 <template>
   <article
     @click="configDietStore.toggleMeal(props.literal)"
-    class="capitalize text-lg cursor-pointer flex flex-row gap-x-2 items-center px-4 py-2 border-2 rounded-lg border-primary-100"
+    class="capitalize text-md cursor-pointer flex flex-row gap-x-2 items-center px-4 py-2 border-2 rounded-full border-gray-200"
   >
     <custom-check :checked="configDietStore.checkIfMealIsIncluded(props.literal)" />
     {{ literal }}

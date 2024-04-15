@@ -1,13 +1,20 @@
 <template>
   <div class="space-y-8">
-    <p
-      class="text-4xl cursor-pointer"
-      @click="router.push({ name: 'ConfigDiet' })"
-    >
-      ⬅️
-    </p>
+    <header class="flex flex-row items-center justify-center">
+      <p
+          class="bg-primary-200 rounded-full text-white"
+          @click="router.push({ name: 'ConfigDiet' })"
+      >
+        <svg class="icon icon-tabler icon-tabler-arrow-back-up" width="34" height="34" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M9 14l-4 -4l4 -4" />
+          <path d="M5 10h11a4 4 0 1 1 0 8h-1" />
+        </svg>
+      </p>
 
-    <typography-variant variant="h2"> Cálculo de calorías </typography-variant>
+      <typography-variant variant="h2" class="text-center flex-grow"> Cálculo de calorías </typography-variant>
+      <p></p>
+    </header>
 
     <section class="space-y-6">
       <typography-variant variant="h3"> Genero </typography-variant>
@@ -43,17 +50,16 @@
 
     <section class="flex flex-col items-center">
       <typography-variant variant="h3"> Calorías diarias </typography-variant>
-      <p class="text-3xl font-bold">
+      <p class="text-3xl font-bold text-primary-600">
         {{ tweened.number.toFixed(0) }} <span class="text-xl">KCal</span>
       </p>
     </section>
 
-    <p class="flex justify-center">
-      <button
-        @click="router.push({ name: 'ConfigSummary' })"
-        class="text-4xl"
+    <p class="flex justify-center items-center">
+      <button @click="router.push({ name: 'ConfigSummary' })"
+              class="text-xl font-bold bg-primary-500 text-white px-4 py-2 rounded-full "
       >
-        ➡️
+        Siguiente
       </button>
     </p>
   </div>

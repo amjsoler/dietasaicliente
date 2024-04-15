@@ -9,7 +9,7 @@
       name="list"
     >
       <li
-          class="cursor-pointer border-2 border-primary-100 px-4 py-2 rounded-lg"
+          class="cursor-pointer border-2 border-gray-200 px-4 py-2 rounded-full"
           @click="removeSelectIngredient(ingredient)"
           v-for="ingredient in configDietStore.IngredientsExcluded"
           v-bind:key="ingredient"
@@ -27,7 +27,7 @@
     type="text"
     v-model="search"
     id="input-search-ingredient"
-    class="w-3/4 inset-0 block mx-auto border-2 border-primary-100 rounded-lg"
+    class="w-3/4 inset-0 block mx-auto border-2 border-gray-200 rounded-full h-10 px-6 py-2"
     placeholder="Busca un ingrediente"
   />
 
@@ -48,7 +48,7 @@
             ingredient.name.toLowerCase().includes(search.toLowerCase()) &&
             !configDietStore.checkIfIngredientIsExcluded(ingredient.name.toLowerCase())
           "
-          class="flex flex-row items-center justify-center border-2 border-primary-100 rounded-lg px-4 py-2"
+          class="flex flex-row items-center justify-center border-2 border-gray-200 rounded-full px-4 py-2"
       >
         {{ ingredient.name }}
       </span>

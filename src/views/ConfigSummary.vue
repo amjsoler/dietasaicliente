@@ -222,7 +222,7 @@ import {ref} from "vue";
     const restartConfigDiet = () => {
       localStorage.removeItem("configDiet");
       configDietStore.$reset()
-      this.$router.push({ name: "ConfigDiet" });
+      router.push({ name: "ConfigDiet" });
     }
 
     const generateDiet = () => {

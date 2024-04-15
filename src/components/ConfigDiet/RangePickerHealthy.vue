@@ -4,18 +4,29 @@
       type="range"
       min="0"
       max="2"
-      :data-value="configDietStore.Healthyness"
-      @input="event => configDietStore.Healthyness = event.target.value"
-      :value="configDietStore.Healthyness"
+      v-model="configDietStore.Healthyness"
       class="w-full md:w-3/4 h-4 cursor-pointer"
     />
   </div>
+  <p>Incluír recetas <b>{{getRecipeTypeSelected}}</b></p>
 </template>
 
 <script lang="ts" setup>
 import { useConfigDietStore } from "@/storage/configDiet.js";
+import {computed} from "vue";
 
 const configDietStore = useConfigDietStore()
+
+const getRecipeTypeSelected = computed(() => {
+  switch (configDietStore.Healthyness) {
+    case "1":
+      return "saludables y equilibradas"
+    case "2":
+      return "saludables"
+    default:
+      return "de todo tipo"
+  }
+})
 </script>
 
 <style scoped>
@@ -37,36 +48,19 @@ input[type="range"]:focus {
 input[type="range"]::-webkit-slider-runnable-track {
   background-color: rgb(156 163 175 / 0.2);
   border-radius: 0.5rem;
-  height: 0.5rem;
+  height: 0.25rem;
 }
 
 /* slider thumb */
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
-  height: 32px;
+  height: 12px;
   width: 32px;
-  margin-top: -12px; /* Centers thumb on the track */
-}
-
-input[data-value="0"]::-webkit-slider-thumb {
-  background: #fceade url("/icons/hamburguesa.png") no-repeat center center;
-  background-size: contain;
-}
-
-input[data-value="1"]::-webkit-slider-thumb {
-  background: #fceade url("/icons/balanza.png") no-repeat center;
-  background-size: contain;
-}
-
-input[data-value="2"]::-webkit-slider-thumb {
-  background: #fceade url("/icons/corazon.png") no-repeat center;
-  background-size: contain;
-}
-
-input[type="range"]:focus::-webkit-slider-thumb {
-  outline: 3px solid #ff7b00;
-  outline-offset: 0.125rem;
+  margin-top: -4px; /* Centers thumb on the track */
+  border-radius: 5px;
+  background-color: #09c865;
+  box-shadow: lightgray 0px 1px 3px;
 }
 
 /*********** Firefox styles ***********/
@@ -74,22 +68,18 @@ input[type="range"]:focus::-webkit-slider-thumb {
 input[type="range"]::-moz-range-track {
   background-color: rgb(156 163 175 / 0.6);
   border-radius: 0.5rem;
-  height: 0.5rem;
+  height: 0.25rem;
 }
 
 /* slider thumb */
 input[type="range"]::-moz-range-thumb {
-  border: none; /*Removes extra border that FF applies*/
-  border-radius: 0.5rem;
   -webkit-appearance: none; /* Override default look */
   appearance: none;
-  height: 32px;
+  height: 12px;
   width: 32px;
-  margin-top: -12px; /* Centers thumb on the track */
-}
-
-input[type="range"]:focus::-moz-range-thumb {
-  outline: 3px solid #ff7b00;
-  outline-offset: 0.125rem;
+  margin-top: -4px; /* Centers thumb on the track */
+  border-radius: 5px;
+  background-color: #09c865;
+  box-shadow: lightgray 0px 1px 3px;
 }
 </style>

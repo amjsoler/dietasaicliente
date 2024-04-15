@@ -73,38 +73,6 @@ export const useConfigDietStore = defineStore("configDiet", {
         }
     },
 
-    getDietObjective() {
-      return this.dietObjective;
-    },
-
-    setDietObjective(dietObjective) {
-      this.dietObjective = dietObjective;
-    },
-
-    getWeeklyActivity() {
-      return this.weeklyActivity;
-    },
-
-    setWeeklyActivity(weeklyActivity) {
-      this.weeklyActivity = weeklyActivity;
-    },
-
-    getAge() {
-      return this.age;
-    },
-
-    getWidth() {
-      return this.width;
-    },
-
-    getHeight() {
-      return this.height;
-    },
-
-    getGender() {
-      return this.gender;
-    },
-
     toggleGender() {
       if (this.gender === "female") this.gender = "male";
       else {
@@ -128,11 +96,7 @@ export const useConfigDietStore = defineStore("configDiet", {
     },
 
     getFoodRestrictions() {
-      return this.FoodRestrictions;
-    },
-
-    getAllergies() {
-      return this.Allergies;
+      return this.FoodRestrictions.filter(item => item.selected).map(item => item.code);
     },
 
     addMeal(meal) {
@@ -141,19 +105,6 @@ export const useConfigDietStore = defineStore("configDiet", {
 
     removeMeal(meal) {
       this.MealsIncluded = this.MealsIncluded.filter((m) => m !== meal);
-    },
-
-    getHealthyness() {
-      return this.Healthyness;
-    },
-
-
-    getMaxTime() {
-      return this.MaxTime;
-    },
-
-    getDifficulty() {
-      return this.Difficulty;
     },
   },
 });

@@ -1,8 +1,8 @@
 <template>
   <section class="w-full md:w-3/4 mx-auto">
-    <select v-model="configDietStore.weeklyActivity.selected">
+    <select v-model="configDietStore.weeklyActivity.selected" class="bg-gray-200 rounded-full px-8 py-2 w-full">
       <option
-        class="border-2 border-primary-400 rounded-lg"
+        class="border-2 border-primary-400 rounded-full"
         v-for="activity in configDietStore.weeklyActivity.availableActivities"
         :key="activity.name"
         :value="activity.multiplier"
@@ -21,14 +21,5 @@ const configDietStore = useConfigDietStore()
 
 <style scoped>
 select {
-  appearance: none;
-  border-radius: 10px;
-  background-color: #fceade;
-  border-color: #ff903d;
-  width: 100%;
-  height: 50px;
-  color: #c75400;
-  font-size: 1.1rem;
-  font-weight: bold;
 }
 </style>

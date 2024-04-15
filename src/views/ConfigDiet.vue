@@ -1,10 +1,7 @@
 <template>
   <div class="space-y-8">
     <header class="space-y-2">
-      <typography-variant variant="h2">Personaliza tu dieta</typography-variant>
-      <typography-variant variant="p">
-        A continuación, podrás personalizar la dieta tanto como quieras
-      </typography-variant>
+      <typography-variant class="text-center" variant="h2">Personaliza tu dieta</typography-variant>
     </header>
 
     <section class="space-y-2">
@@ -59,8 +56,8 @@
       <exclude-ingredient />
     </section>
 
-    <p class="flex justify-center">
-      <button @click="router.push({name:'ConfigMacros'})" class="text-4xl">➡️</button>
+    <p class="flex justify-center items-center">
+      <button @click="router.push({name:'ConfigMacros'})" class="text-xl font-bold bg-primary-500 text-white px-4 py-2 rounded-full ">Siguiente</button>
     </p>
   </div>
 </template>
