@@ -1,35 +1,11 @@
-# dietasaicliente
+# Mi Dieta IA
+Es un proyecto que pretende testear el alcance de la inteligencia artificial. Más concretamente GPT3-turbo.
 
-This template should help get you started developing with Vue 3 in Vite.
+La idea es presentar al usuario un formulario para poder personalizar y ajustar la dieta lo máximo posible. La IA, a partir de los datos facilitados por el usuario, conformará una dieta semanal.
 
-## Recommended IDE Setup
+La app se puede probar en [https://app.midietaia.com](https://app.midietaia.com/)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Tecnologías
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+- La parte cliente se ha desarrollado en Vue.js [https://github.com/amjsoler/dietasaicliente](https://github.com/amjsoler/dietasaicliente)
+- La parte de backend, es un API REST desarrollado en Laravel [https://github.com/amjsoler/dietasai](https://github.com/amjsoler/dietasai)
